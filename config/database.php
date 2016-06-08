@@ -77,19 +77,18 @@ return [
             'prefix' => '',
             'schema' => 'public',
         ],
-/*
+
         'mongodb' => [
         'driver'   => 'mongodb',
         'host'     => env('DB_HOST', '140.136.155.143'),
-        'port'     => env('DB_PORT', 27017),
+        'port'     => env('DB_PORT','27017'),
         'database' => env('DB_DATABASE','local'),
         'username' => env('DB_USERNAME','homestead'),
         'password' => env('DB_PASSWORD','secret'),
         'options' => [
         'database' => 'admin' // sets the authentication database required by mongo 3
         ]
-    ],
- */
+    ], 
     ],
 
     /*
