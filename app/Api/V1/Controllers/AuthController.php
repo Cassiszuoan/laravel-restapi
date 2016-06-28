@@ -25,7 +25,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-        $this->getValidatorInstance()->getPresenceVerifier()->setConnection('mongodb');
+        
         $credentials = $request->only(['email', 'password']);
         
         $validator = Validator::make($credentials, [
@@ -52,7 +52,7 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-        $this->getValidatorInstance()->getPresenceVerifier()->setConnection('mongodb');
+        
         $signupFields = Config::get('boilerplate.signup_fields');
         $hasToReleaseToken = Config::get('boilerplate.signup_token_release');
 
@@ -110,7 +110,7 @@ class AuthController extends Controller
 
     public function recovery(Request $request)
     {
-        $this->getValidatorInstance()->getPresenceVerifier()->setConnection('mongodb');
+        
         $validator = Validator::make($request->only('email'), [
             'email' => 'required'
         ]);
@@ -133,7 +133,7 @@ class AuthController extends Controller
 
     public function reset(Request $request)
     {
-        $this->getValidatorInstance()->getPresenceVerifier()->setConnection('mongodb');
+        
         $credentials = $request->only(
             'email', 'password', 'password_confirmation', 'token'
         );
