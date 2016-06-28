@@ -88,8 +88,6 @@ class AuthController extends Controller
         $user->password=$userData['password'];
         $user->follower_count=0;
         $user->followed_count=0;
-        $user->fb_id="";
-        $user->fb_accesstoken="";
         $user->save();
         
         

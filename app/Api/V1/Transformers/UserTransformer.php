@@ -43,7 +43,7 @@ class UserTransformer extends TransformerAbstract
 
             'access_token' => [
 
-            'token'=>$user->accesstoken,
+             'api_accesstoken'=>$user->accesstoken,
             'facebook_accesstoken'=>$user->fb_accesstoken,
 
             ]
