@@ -35,11 +35,18 @@ class UserTransformer extends TransformerAbstract
             'social_ids' => [
                  
                 'facebook_id' => $user->fb_id,
-                'facebook_accesstoken'=>$user->fb_accesstoken,
+                
 
             ],
             'created_time' =>$user->created_at,
             'updated_time' =>$user->updated_at,
+
+            'access_token' => [
+
+            'token'=>$user->accesstoken,
+            'facebook_accesstoken'=>$user->fb_accesstoken,
+
+            ]
             
                      
         
