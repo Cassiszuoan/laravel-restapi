@@ -12,7 +12,7 @@ class CreateUserCollection extends Migration
      */
     public function up()
     {
-        Schema::create('user_collection', function ($collection) {
+        Schema::create('users_collection', function ($collection) {
             $collection->string('name');
             $collection->string('email')->unique();
             $collection->string('password');

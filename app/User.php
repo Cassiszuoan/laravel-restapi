@@ -27,7 +27,7 @@ class User extends Moloquent implements AuthenticatableContract,CanResetPassword
      */
 
 
-    protected $collection = 'user_collection';
+    protected $collection = 'users_collection';
 
     protected $fillable = [
         'name', 'email', 'password'
