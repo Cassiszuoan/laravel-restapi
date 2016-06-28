@@ -30,7 +30,7 @@ class User extends Moloquent implements AuthenticatableContract,CanResetPassword
     protected $collection = 'user_collection';
 
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password','follower_count','followed_count'
     ];
 
     /**

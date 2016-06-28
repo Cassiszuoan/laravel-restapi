@@ -39,7 +39,7 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return $this->response->error('could_not_create_token', 500);
         }
-        $user = User::where('email','=',$credentials['email'])->get();
+        $user = User::where('email','=',$credentials['email'])->first();
         $user->accesstoken=compact('token');
         $user->save();
         return response()->json(compact('token'));
