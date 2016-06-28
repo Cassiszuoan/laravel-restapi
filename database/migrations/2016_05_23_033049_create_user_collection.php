@@ -16,6 +16,11 @@ class CreateUserCollection extends Migration
             $collection->string('name');
             $collection->string('email')->unique();
             $collection->string('password');
+            $collection->string('accesstoken')->unique();
+            $collection->int('follower_count')->default(0);
+            $collection->int('followed_count')->default(0);
+            $collection->string('fb_id')->unique();
+            $collection->string('fb_accestoken');
             $collection->rememberToken();
         });
     }

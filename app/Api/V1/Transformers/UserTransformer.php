@@ -29,7 +29,14 @@ class UserTransformer extends TransformerAbstract
             'id'            => $user->_id,
             'name'          => $user->name,
             'email'         => $user->email,
-            'books'         => $user->books,
+            // 'books'         => $user->books,
+            'social_ids' => [
+                 
+                'facebook_id' => $user->fb_id,
+                'facebook_accesstoken'=>$user->fb_accesstoken,
+
+            ],
+            
                      
         
         ];
