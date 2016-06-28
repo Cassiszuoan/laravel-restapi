@@ -19,8 +19,19 @@ class AuthController extends Controller
 {
     use Helpers;
 
+
+
+    public function authorize(){
+    // Make MongoDB the presence verifier
+    $this->getValidatorInstance()->getPresenceVerifier()->setConnection('mongodb');
+    // in this case we're authorizing any user
+    return true;
+   }
+
     public function login(Request $request)
     {
+
+        authorize();
         $credentials = $request->only(['email', 'password']);
         
         $validator = Validator::make($credentials, [
@@ -47,6 +58,7 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
+        authorize();
         $signupFields = Config::get('boilerplate.signup_fields');
         $hasToReleaseToken = Config::get('boilerplate.signup_token_release');
 
@@ -104,6 +116,7 @@ class AuthController extends Controller
 
     public function recovery(Request $request)
     {
+        authorize();
         $validator = Validator::make($request->only('email'), [
             'email' => 'required'
         ]);
@@ -126,6 +139,7 @@ class AuthController extends Controller
 
     public function reset(Request $request)
     {
+        authorize();
         $credentials = $request->only(
             'email', 'password', 'password_confirmation', 'token'
         );
