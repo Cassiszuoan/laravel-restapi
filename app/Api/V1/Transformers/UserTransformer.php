@@ -30,12 +30,16 @@ class UserTransformer extends TransformerAbstract
             'name'          => $user->name,
             'email'         => $user->email,
             // 'books'         => $user->books,
+            'follower_count'=> $user->follower_count,
+            'followed_count'=> $user->followed_count,
             'social_ids' => [
                  
                 'facebook_id' => $user->fb_id,
                 'facebook_accesstoken'=>$user->fb_accesstoken,
 
             ],
+            'created_time' =>$user->created_at,
+            'updated_time' =>$user->updated_at,
             
                      
         
