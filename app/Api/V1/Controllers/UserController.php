@@ -40,9 +40,22 @@ class UserController extends BaseController
 
 
        $user = User::where('name','=',$name)->get();
+       
        return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
 
     }
+
+
+
+
+    public function getUserByToken($token) {
+
+    	$user = User::where('accesstoken','like',$token)->get();
+    	return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
+
+    }
+
+
 
 
 

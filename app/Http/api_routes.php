@@ -10,6 +10,7 @@ $api->version('v1', function ($api) {
 	$api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
 	$api->get('user/index','App\Api\V1\Controllers\UserController@index');
 	$api->get('user/{name}','App\Api\V1\Controllers\UserController@get');
+	$api->get('user/token/{token}','App\Api\V1\Controllers\UserController@getUserByToken');
 	$api->get('book/index','App\Api\V1\Controllers\BookController@index');
 	$api->post('book/store','App\Api\V1\Controllers\BookController@store');
 
