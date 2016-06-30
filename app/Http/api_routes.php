@@ -13,6 +13,7 @@ $api->version('v1', function ($api) {
 	$api->get('user/token/{token}','App\Api\V1\Controllers\UserController@getUserByToken');
 	$api->get('book/index','App\Api\V1\Controllers\BookController@index');
 	$api->post('book/store','App\Api\V1\Controllers\BookController@store');
+	$api->post('connection/connect','App\Api\V1\Controllers\ConnectionController@connect');
 
 	// example of protected route
 	$api->get('protected', ['middleware' => ['api.auth'], function () {		
