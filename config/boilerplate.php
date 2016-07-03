@@ -13,7 +13,7 @@ return [
     |
     */
     'signup_fields' => [
-        'name', 'email', 'password'
+        'name', 'email', 'password','userbio','userweb'
     ],
 
     /*
