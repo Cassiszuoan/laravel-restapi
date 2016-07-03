@@ -29,9 +29,11 @@ class UserTransformer extends TransformerAbstract
             'id'            => $user->_id,
             'name'          => $user->name,
             'email'         => $user->email,
-            // 'books'         => $user->books,
+            'bio'           => $user->userbio,
+            'web'           => $user->userweb,
             'follower_count'=> $user->follower_count,
             'followed_count'=> $user->followed_count,
+            'posts_count'=> $user->posts_count,
             'social_ids' => [
                  
                 'facebook_id' => $user->fb_id,
@@ -40,6 +42,7 @@ class UserTransformer extends TransformerAbstract
             ],
             'created_time' =>$user->created_at,
             'updated_time' =>$user->updated_at,
+            'connections'=>$user->connections,
 
             'access_token' => [
 
@@ -47,6 +50,8 @@ class UserTransformer extends TransformerAbstract
             'facebook_accesstoken'=>$user->fb_accesstoken,
 
             ]
+
+
             
                      
         

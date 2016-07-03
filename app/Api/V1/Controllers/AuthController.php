@@ -86,6 +86,9 @@ class AuthController extends Controller
         $user->name = $userData['name'];
         $user->email=$userData['email'];
         $user->password=$userData['password'];
+        $user->userbio=$userData['userbio'];
+        $user->userweb=$userData['userweb'];
+        $user->posts_count=0;
         $user->follower_count=0;
         $user->followed_count=0;
         $user->save();
