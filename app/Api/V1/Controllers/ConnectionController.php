@@ -57,7 +57,43 @@ class ConnectionController extends BaseController
         $connection = Connection::where('user_from_id','=',$user_from_id);
 
 
-        return response()->json($connection)->addMeta('status Code', app('Illuminate\Http\Response')->status());
+        return response()->json($connection);
+
+
+    }
+
+
+
+    public function delete(Request $request){
+
+         $input = $request->all();
+        
+         $validator = Validator::make($input,[
+            'token'       =>   'required',
+            'user_to_id'       =>   'required',
+        ]);
+
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        
+        $accesstoken = $input['token'];
+
+        $user = User::where('accesstoken','like',$accesstoken)->first();
+
+        $user_from_id = $user->_id;
+
+
+    
+        $connection = Connection::where('user_from_id','=',$user_from_id)->where('user_to_id','=',$input['user_to_id']);
+
+        $connection->delete();
+
+
+
+
 
 
     }
@@ -106,7 +142,7 @@ class ConnectionController extends BaseController
    
 
 
-        return response()->json($connection)->addMeta('status Code', app('Illuminate\Http\Response')->status());
+        return response()->json($connection);
 
 
 
