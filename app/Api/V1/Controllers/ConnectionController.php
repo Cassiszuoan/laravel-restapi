@@ -29,6 +29,40 @@ class ConnectionController extends BaseController
 	}
 
 
+
+    public function search(Request $request){
+         
+         $input = $request->all();
+
+
+        $validator = Validator::make($input,[
+            'token'       =>   'required',    
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+
+
+        $accesstoken = $input['token'];
+
+        $user = User::where('accesstoken','like',$accesstoken)->first();
+
+        $user_from_id = $user->_id;
+
+        $connection = Connection::where('user_from_id','=',$user_from_id);
+
+
+        return response()->json($connection)->addMeta('status Code', app('Illuminate\Http\Response')->status());
+
+
+    }
+
+
 	public function connect(Request $request){
 
        
@@ -72,7 +106,7 @@ class ConnectionController extends BaseController
    
 
 
-        return response()->json($connection);
+        return response()->json($connection)->addMeta('status Code', app('Illuminate\Http\Response')->status());
 
 
 
