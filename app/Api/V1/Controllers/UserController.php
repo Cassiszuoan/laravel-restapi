@@ -50,7 +50,7 @@ class UserController extends BaseController
 
     public function getUserByToken($token) {
 
-    	$user = User::where('accesstoken','like',$token)->get();
+    	$user = User::where('accesstoken','=',$token)->get();
     	return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
 
     }
