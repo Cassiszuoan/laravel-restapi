@@ -12,7 +12,8 @@ $api->version('v1', function ($api) {
 	$api->get('user/{name}','App\Api\V1\Controllers\UserController@get');
 	$api->get('user/token/{token}','App\Api\V1\Controllers\UserController@getUserByToken');
 	$api->post('connection/connect','App\Api\V1\Controllers\ConnectionController@connect');
-	$api->post('connection/search','App\Api\V1\Controllers\ConnectionController@search');
+	$api->post('connection/search_following','App\Api\V1\Controllers\ConnectionController@search_following');
+    $api->post('connection/search_followed','App\Api\V1\Controllers\ConnectionController@search_followed');
 	$api->post('connection/delete','App\Api\V1\Controllers\ConnectionController@delete');
 
 
