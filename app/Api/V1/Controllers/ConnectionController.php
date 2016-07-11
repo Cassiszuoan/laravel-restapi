@@ -168,7 +168,7 @@ class ConnectionController extends BaseController
 
         $accesstoken = $input['token'];
 
-        $user = User::where('accesstoken','like',$accesstoken)->first();
+        $user = User::where('accesstoken','=',$accesstoken)->first();
 
         $user_from_id = $user->_id;
 
