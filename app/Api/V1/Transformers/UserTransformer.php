@@ -32,7 +32,7 @@ class UserTransformer extends TransformerAbstract
             'bio'           => $user->userbio,
             'web'           => $user->userweb,
             'follower_count'=> $user->follower_count,
-            'followed_count'=> $user->followed_count,
+            'following_count'=> $user->following_count,
             'posts_count'=> $user->posts_count,
             'social_ids' => [
                  

@@ -90,7 +90,7 @@ class AuthController extends Controller
         $user->userweb=$userData['userweb'];
         $user->posts_count=0;
         $user->follower_count=0;
-        $user->followed_count=0;
+        $user->following_count=0;
         $user->save();
         
         

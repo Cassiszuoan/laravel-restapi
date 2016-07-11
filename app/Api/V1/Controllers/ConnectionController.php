@@ -171,16 +171,29 @@ class ConnectionController extends BaseController
         $user = User::where('accesstoken','like',$accesstoken)->first();
 
         $user_from_id = $user->_id;
-        
+
 
         
 
         
 
+        
+        
         $connection = new Connection;
         $connection->user_from_id = $user_from_id;
         $connection->user_to_id=$input['user_to_id'];
+        $connection->following_user_img= 'testing url';
+
+
+        $followinguser = User::where('_id','=',$input['user_to_id'])->first();
+        $connection->following_user_name = $followinguser->name;
         $connection->save();
+        
+
+        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+
+        $user->following_count = $totalconnection;
+
         // $user->connections()->associate($connection);
         // $user->connections()->save($connection);
         // $user->save();
