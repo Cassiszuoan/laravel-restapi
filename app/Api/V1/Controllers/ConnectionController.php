@@ -144,6 +144,9 @@ class ConnectionController extends BaseController
     
         $connection = Connection::where('user_from_id','=',$user_from_id)->where('user_to_id','=',$input['user_to_id']);
 
+
+
+        
         $connection->delete();
 
 
@@ -155,9 +158,7 @@ class ConnectionController extends BaseController
         $user->save();
 
 
-        if ( !$connection->delete() ) {
-                return $this->response->error('could_not_delete_connection', 500);
-            }
+        
 
 
 
