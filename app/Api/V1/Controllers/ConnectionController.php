@@ -57,6 +57,13 @@ class ConnectionController extends BaseController
         $connection = Connection::where('user_from_id','=',$user_from_id)->get();
 
 
+        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+
+        $user->following_count = $totalconnection;
+
+        $user->save();
+
+
         return response()->json($connection);
 
 
@@ -94,7 +101,14 @@ class ConnectionController extends BaseController
 
         $connection = Connection::where('user_to_id','=',$user_id)->get();
 
+        
 
+
+        $totalconnection = Connection::where('user_to_id','=',$user_id)->count();
+
+        $user->followed_count = $totalconnection;
+
+        $user->save();
 
 
         return response()->json($connection);
@@ -131,6 +145,14 @@ class ConnectionController extends BaseController
         $connection = Connection::where('user_from_id','=',$user_from_id)->where('user_to_id','=',$input['user_to_id']);
 
         $connection->delete();
+
+
+
+        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+
+        $user->following_count = $totalconnection;
+
+        $user->save();
 
 
         if ( !$connection->delete() ) {
@@ -184,8 +206,15 @@ class ConnectionController extends BaseController
         $connection->user_to_id=$input['user_to_id'];
         $connection->following_user_img= 'testing url';
 
+        
 
         $followinguser = User::where('_id','=',$input['user_to_id'])->first();
+
+        if(!$followinguser){
+
+            return $this->response->error('user_to_id not Found', 500);
+
+        }
         $connection->following_user_name = $followinguser->name;
         $connection->save();
         
@@ -193,6 +222,8 @@ class ConnectionController extends BaseController
         $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
 
         $user->following_count = $totalconnection;
+
+        $user->save();
 
         // $user->connections()->associate($connection);
         // $user->connections()->save($connection);
