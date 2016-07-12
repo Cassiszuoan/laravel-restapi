@@ -152,6 +152,7 @@ class ConnectionController extends BaseController
         }
         
         $connection->delete();
+        
 
 
 
@@ -160,6 +161,9 @@ class ConnectionController extends BaseController
         $user->following_count = $totalconnection;
 
         $user->save();
+
+
+        return $this->response('Connection deleted',200);
 
 
         
