@@ -145,7 +145,11 @@ class ConnectionController extends BaseController
         $connection = Connection::where('user_from_id','=',$user_from_id)->where('user_to_id','=',$input['user_to_id']);
 
 
+        if(!$connection){
+    
+         return $this->response->error('connection not Found', 500);
 
+        }
         
         $connection->delete();
 
