@@ -142,7 +142,7 @@ class ConnectionController extends BaseController
 
 
     
-        $connection = Connection::where('user_from_id','=',$user_from_id)->where('user_to_id','=',$input['user_to_id']);
+        $connection = Connection::where('user_from_id','=',$user_from_id)->where('user_to_id','=',$input['user_to_id'])->first();
 
 
         if(!$connection){
