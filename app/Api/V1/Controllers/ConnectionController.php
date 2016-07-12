@@ -163,7 +163,7 @@ class ConnectionController extends BaseController
         $user->save();
 
 
-        return $this->response('Connection deleted',200);
+        return response()->json(['message' => 'Connection has been deleted', 'status code' => '200']);
 
 
         
