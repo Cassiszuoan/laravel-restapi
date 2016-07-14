@@ -228,9 +228,11 @@ class ConnectionController extends BaseController
         $connection->save();
         
 
-        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+        $followingconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+        $followerconnection = Connection::where('user_to_id','=',$user_from_id)->count();
 
-        $user->following_count = $totalconnection;
+        $user->following_count = $followingconnection;
+        $user->follower_count =  $followerconnection;
 
         $user->save();
 
