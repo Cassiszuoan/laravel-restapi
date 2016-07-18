@@ -61,6 +61,10 @@ class ConnectionController extends BaseController
 
         $user->following_count = $totalconnection;
 
+        $followerconnection = Connection::where('user_to_id','=',$user_from_id)->count();
+
+        $user->follower_count =  $followerconnection;
+
         $user->save();
 
 
@@ -107,6 +111,10 @@ class ConnectionController extends BaseController
         $totalconnection = Connection::where('user_to_id','=',$user_id)->count();
 
         $user->followed_count = $totalconnection;
+
+        $followerconnection = Connection::where('user_to_id','=',$user_from_id)->count();
+
+        $user->follower_count =  $followerconnection;
 
         $user->save();
 
@@ -159,6 +167,10 @@ class ConnectionController extends BaseController
         $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
 
         $user->following_count = $totalconnection;
+
+        $followerconnection = Connection::where('user_to_id','=',$user_from_id)->count();
+
+        $user->follower_count =  $followerconnection;
 
         $user->save();
 
