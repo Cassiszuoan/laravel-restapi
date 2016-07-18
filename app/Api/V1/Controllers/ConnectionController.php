@@ -160,6 +160,23 @@ class ConnectionController extends BaseController
         }
         
         $connection->delete();
+
+
+        $deleteuser = User::where('_id','=',$input['user_to_id'])->first();
+
+
+
+
+        if(Connection::where('user_to_id','=',$input['user_to_id'])){
+            $count = Connection::where('user_to_id','=',$input['user_to_id'])->count();
+        }
+        else{
+
+            $count = 0 ;
+        }
+
+        $deleteuser->follower_count = $count;
+        $deleteuser->save();
         
 
 
