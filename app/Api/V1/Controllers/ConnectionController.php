@@ -99,9 +99,7 @@ class ConnectionController extends BaseController
         $user = User::where('accesstoken','=',$accesstoken)->first();
 
 
-        $user_id = $user->_id;
-
-
+        $user_from_id = $user->_id;
 
         $connection = Connection::where('user_to_id','=',$user_id)->get();
 
