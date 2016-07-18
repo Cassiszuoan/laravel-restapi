@@ -101,12 +101,12 @@ class ConnectionController extends BaseController
 
         $user_from_id = $user->_id;
 
-        $connection = Connection::where('user_to_id','=',$user_id)->get();
+        $connection = Connection::where('user_to_id','=',$user_from_id)->get();
 
         
 
 
-        $totalconnection = Connection::where('user_to_id','=',$user_id)->count();
+        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
 
         $user->following_count = $totalconnection;
 
