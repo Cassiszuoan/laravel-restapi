@@ -56,6 +56,27 @@ class UserController extends BaseController
     }
 
 
+    public function search(Request $request){
+
+
+      $input = $request->all();
+
+
+        $validator = Validator::make($input,[
+            'email'       =>   'required',    
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+      $user = User::where('email','=',$input['email'])->get();
+      return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
+    }
+
+
 
 
 

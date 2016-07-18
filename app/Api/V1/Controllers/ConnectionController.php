@@ -165,8 +165,6 @@ class ConnectionController extends BaseController
         $deleteuser = User::where('_id','=',$input['user_to_id'])->first();
 
 
-
-
         if(Connection::where('user_to_id','=',$input['user_to_id'])){
             $count = Connection::where('user_to_id','=',$input['user_to_id'])->count();
         }
