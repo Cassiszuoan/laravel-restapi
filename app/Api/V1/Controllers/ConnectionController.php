@@ -231,7 +231,7 @@ class ConnectionController extends BaseController
 
         $followinguser = User::where('_id','=',$input['user_to_id'])->first();
 
-        $followinguser->follower_count = Connection::where('user_to_id','=',$followinguser->_id)->count();
+        $followinguser->follower_count = Connection::where('user_to_id','=',$input['user_to_id'])->count();
 
         $followinguser->save();
 
