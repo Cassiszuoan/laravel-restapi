@@ -215,7 +215,12 @@ class ConnectionController extends BaseController
 
         $user_from_id = $user->_id;
 
+        
+        if(!$user){
 
+            return $this->response->error('user not Found', 500);
+
+        }
         
 
         
