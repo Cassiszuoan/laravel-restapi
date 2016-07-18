@@ -247,7 +247,7 @@ class ConnectionController extends BaseController
         // $followercount = 0;
         // $followinguser->follower_count = $followercount;
 
-        $followinguser->save();
+        // $followinguser->save();
 
         if(!$followinguser){
 
