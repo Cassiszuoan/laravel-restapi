@@ -59,10 +59,10 @@ class UserController extends BaseController
 
     public function getUserById($id){
 
-      $user = User::find($id)->get();
+      $user = User::find($id)->first();
 
       return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
-      
+
 
     }
 
