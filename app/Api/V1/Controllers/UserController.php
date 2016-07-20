@@ -59,7 +59,7 @@ class UserController extends BaseController
 
     public function getUserById($id){
 
-      $user = User::find($id)->first();
+      $user = User::where('_id','=',$id)->first();
 
       return response()->json($user);
 
