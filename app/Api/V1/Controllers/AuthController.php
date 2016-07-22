@@ -180,14 +180,17 @@ class AuthController extends Controller
             throw new ValidationHttpException($validator->errors()->all());
         }
 
+        $user = User::where('facebook_id','=',$credentials['fb_id'])->first();
+
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (! $user) {
                 return $this->response->errorUnauthorized();
             }
         } catch (JWTException $e) {
             return $this->response->error('could_not_create_token', 500);
         }
-        $user = User::where('email','=',$credentials['email'])->first();
+
+        $token = JWTAuth::fromUser($user);
         $user->accesstoken=$token;
         $user->save();
         return response()->json(compact('token'));
