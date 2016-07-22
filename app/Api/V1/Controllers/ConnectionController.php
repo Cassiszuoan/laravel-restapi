@@ -128,15 +128,21 @@ class ConnectionController extends BaseController
 
 
 
-        $connection->follower_user_img= 'testing url';
 
-        $user_from_id = $connection->user_from_id;
+        foreach($connection as $i){
+       
+        $i->following_user_img= 'testing url';
+
+        $user_from_id = $i->user_from_id;
 
         $followeruser = User::where('_id','=',$user_from_id)->first();
 
-        $connection->follower_user_name = $followeruser->name; 
+        $i->follower_user_name = $followeruser->name; 
 
-        $connection->save();
+        $i->save();
+         
+
+     }
 
         
 
