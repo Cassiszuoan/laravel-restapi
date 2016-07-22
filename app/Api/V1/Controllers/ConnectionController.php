@@ -57,6 +57,20 @@ class ConnectionController extends BaseController
         $connection = Connection::where('user_from_id','=',$user_from_id)->get();
 
 
+
+        $connection->following_user_img= 'testing url';
+
+        $user_to_id = $connection->user_to_id;
+
+        $followinguser = User::where('_id','=',$user_to_id)->first();
+
+        $connection->following_user_name = $followinguser->name; 
+
+        $connection->save();
+
+
+
+
         $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
 
         $user->following_count = $totalconnection;
@@ -102,6 +116,19 @@ class ConnectionController extends BaseController
         $user_from_id = $user->_id;
 
         $connection = Connection::where('user_to_id','=',$user_from_id)->get();
+
+
+
+
+        $connection->follower_user_img= 'testing url';
+
+        $user_from_id = $connection->user_from_id;
+
+        $followeruser = User::where('_id','=',$user_from_id)->first();
+
+        $connection->follower_user_name = $followeruser->name; 
+
+        $connection->save();
 
         
 
@@ -238,7 +265,7 @@ class ConnectionController extends BaseController
         $connection = new Connection;
         $connection->user_from_id = $user_from_id;
         $connection->user_to_id=$input['user_to_id'];
-        $connection->following_user_img= 'testing url';
+        // $connection->following_user_img= 'testing url';
 
         
 
@@ -253,7 +280,7 @@ class ConnectionController extends BaseController
             return $this->response->error('user_to_id not Found', 500);
 
         }
-        $connection->following_user_name = $followinguser->name;
+        // $connection->following_user_name = $followinguser->name;
         $connection->save();
         
 
