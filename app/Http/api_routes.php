@@ -6,6 +6,8 @@ $api->version('v1', function ($api) {
 
 	$api->post('auth/login', 'App\Api\V1\Controllers\AuthController@login');
 	$api->post('auth/signup', 'App\Api\V1\Controllers\AuthController@signup');
+	$api->post('auth/fb_login', 'App\Api\V1\Controllers\AuthController@fb_login');
+	$api->post('auth/fb_signup', 'App\Api\V1\Controllers\AuthController@fb_signup');
 	$api->post('auth/recovery', 'App\Api\V1\Controllers\AuthController@recovery');
 	$api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
 	$api->get('user/index','App\Api\V1\Controllers\UserController@index');
