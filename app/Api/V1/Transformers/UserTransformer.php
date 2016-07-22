@@ -36,7 +36,7 @@ class UserTransformer extends TransformerAbstract
             'posts_count'=> $user->posts_count,
             'social_ids' => [
                  
-                'facebook_id' => $user->fb_id,
+                'facebook_id' => $user->facebook_id,
                 
 
             ],
@@ -47,7 +47,7 @@ class UserTransformer extends TransformerAbstract
             'access_token' => [
 
             'api_accesstoken'=>$user->accesstoken,
-            'facebook_accesstoken'=>$user->fb_accesstoken,
+            'facebook_accesstoken'=>$user->facebook_accesstoken,
 
             ]
 
