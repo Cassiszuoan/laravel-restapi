@@ -109,6 +109,95 @@ class AuthController extends Controller
 
 
 
+    public function fb_signup(Request $request)
+    {
+
+
+        $userData = $request->all();
+
+
+        $validator = Validator::make($input,[
+            'fb_id'       =>   'required',
+            'fb_token'    =>   'required',
+            'name'        =>    'required',
+            'picture'     =>    'required',
+            'email'       =>    'required',
+        ]);
+
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        $hasToReleaseToken = Config::get('boilerplate.signup_token_release');
+
+
+        $user = new User;
+
+
+        $user->name = $userData['name'];
+        $user->email=$userData['email'];
+        $user->password='';
+        $user->facebook_id=$userData['fb_id'];
+        $user->facebook_accesstoken=$userData['fb_token'];
+        $user->userbio=$userData['userbio'];
+        $user->userweb=$userData['userweb'];
+        $user->posts_count=0;
+        $user->follower_count=0;
+        $user->following_count=0;
+        $user->save();
+
+
+        
+
+        if(!$user->id) {
+            return $this->response->error('could_not_create_user', 500);
+        }
+
+        if($hasToReleaseToken) {
+            return $this->fb_login($request);
+        }
+
+        return $this->response->created();
+
+    }
+
+
+
+
+    public function fb_login(Request $request)
+    {
+
+        
+        $credentials = $request->only(['email', 'fb_id']);
+        
+        $validator = Validator::make($credentials, [
+            'email' => 'required',
+            'fb_id' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        try {
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return $this->response->errorUnauthorized();
+            }
+        } catch (JWTException $e) {
+            return $this->response->error('could_not_create_token', 500);
+        }
+        $user = User::where('email','=',$credentials['email'])->first();
+        $user->accesstoken=$token;
+        $user->save();
+        return response()->json(compact('token'));
+    }
+
+
+
+
+
+
     public function recovery(Request $request)
     {
         
