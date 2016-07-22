@@ -20,6 +20,8 @@ use Dingo\Api\Exception\ValidationHttpException;
 
 use App\Api\V1\Transformers\FollowingTransformer;
 
+use App\Api\V1\Transformers\FollowedTransformer;
+
 
 
 
@@ -163,7 +165,7 @@ class ConnectionController extends BaseController
         $user->save();
 
 
-        return response()->json($connection);
+        return $this->response->collection($connection, new FollowedTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());;
 
 
 
