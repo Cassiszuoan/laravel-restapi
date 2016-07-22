@@ -138,7 +138,7 @@ class ConnectionController extends BaseController
 
         foreach($connection as $i){
        
-        $i->following_user_img= 'testing url';
+        $i->follower_user_img= 'testing url';
 
         $user_from_id = $i->user_from_id;
 
