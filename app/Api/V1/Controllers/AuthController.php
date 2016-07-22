@@ -116,7 +116,7 @@ class AuthController extends Controller
         $userData = $request->all();
 
 
-        $validator = Validator::make($input,[
+        $validator = Validator::make($userData,[
             'fb_id'       =>   'required',
             'fb_token'    =>   'required',
             'name'        =>    'required',
