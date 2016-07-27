@@ -59,6 +59,11 @@ class User extends Moloquent implements AuthenticatableContract,CanResetPassword
         return $this->embedsMany('App\Connection');
     }
 
+    public function posts()
+    {
+        return $this->embedsMany('App\Post');
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Hash::make($value);

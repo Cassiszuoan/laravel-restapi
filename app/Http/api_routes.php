@@ -19,6 +19,8 @@ $api->version('v1', function ($api) {
 	$api->post('connection/search_following','App\Api\V1\Controllers\ConnectionController@search_following');
     $api->post('connection/search_followers','App\Api\V1\Controllers\ConnectionController@search_followed');
 	$api->post('connection/delete','App\Api\V1\Controllers\ConnectionController@delete');
+	$api->get('post/index','App\Api\V1\Controllers\PostController@index');
+	$api->post('post/store','App\Api\V1\Controllers\PostController@store');
 
 
 	// example of protected route
