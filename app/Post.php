@@ -4,7 +4,7 @@ namespace App;
 
 use Moloquent;
 
-class Connection extends  Moloquent
+class Post extends  Moloquent
 {
 
     protected $collection = 'Post_collection';
