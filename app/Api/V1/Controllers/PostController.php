@@ -27,6 +27,37 @@ class PostController extends BaseController
 	}
 
 
+    public  function search(Request $request){
+
+          $input = $request -> all();
+          $validator = Validator::make($input,[
+            'token' => 'required',
+            
+        ]);
+
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        $author = User::where('accesstoken','=',$input['token'])->first();
+        $author_id = $author->_id;
+        $posts =  Post::where('author_id','=',$author_id)->get();
+
+
+
+        return response()->json($posts);
+
+
+
+
+
+
+
+
+    }
+
+
 	public function store(Request $request){
    
 
