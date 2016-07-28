@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Post;
 
+use App\User;
+
 use Helpers;
 
 use Validator;
