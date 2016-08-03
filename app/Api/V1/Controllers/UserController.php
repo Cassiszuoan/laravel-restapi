@@ -90,6 +90,58 @@ class UserController extends BaseController
 
 
 
+    public function update(Request $request){
+
+      $input = $request->all();
+
+
+
+      $validator = Validator::make($input,[
+            'token'       =>   'required',    
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+        $user = User::where('accesstoken','=',$input['token'])->first();
+
+        if(!is_null($input['name'])){
+
+          $user->name= $input['name'];
+          $user->save();
+
+        }
+
+
+        if(!is_null($input['about'])){
+
+          $user->userbio= $input['about'];
+          $user->save();
+
+        }
+
+
+
+        if(!is_null($input['website'])){
+
+          $user->userweb= $input['website'];
+          $user->save();
+
+        }
+
+
+
+
+
+    }
+
+
+
+
 
 
 
