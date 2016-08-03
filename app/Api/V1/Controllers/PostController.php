@@ -10,6 +10,8 @@ use App\Post;
 
 use App\User;
 
+use App\Connection;
+
 use Helpers;
 
 use Validator;
@@ -51,13 +53,59 @@ class PostController extends BaseController
         return response()->json($posts);
 
 
+    }
 
 
+
+    public function news_feed(Request $request){
+
+
+     $input = $request->all();
+
+
+
+    $validator = Validator::make($input,[
+            'token' => 'required',
+            
+     ]);
+
+
+
+
+    $user = User::where('accesstoken','=',$input['token'])->first();
+
+
+
+    $user_from_id = $user->_id;
+
+    $connection = Connection::where('user_from_id','=',$user_from_id)->get();
+
+
+    $followinglist = array();
+
+
+    foreach($connection as $i){
+
+    $followinguser = $i->user_to_id;
+
+    array_push($followinglist,$followinguser);
+        
+    }
+
+
+
+
+    return response()->json($followinglist);
 
 
 
 
     }
+
+
+
+
+
 
 
 	public function store(Request $request){
