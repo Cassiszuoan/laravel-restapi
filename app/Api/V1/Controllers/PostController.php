@@ -69,7 +69,10 @@ class PostController extends BaseController
             
      ]);
 
-
+ 
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
 
 
     $user = User::where('accesstoken','=',$input['token'])->first();
