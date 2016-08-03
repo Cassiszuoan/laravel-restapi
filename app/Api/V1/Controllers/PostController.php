@@ -101,11 +101,13 @@ class PostController extends BaseController
 
    foreach($followinglist as $author_id){
 
+    
 
-   $post = Post::where('author_id','=',$author_id)->get();
-
+   if(!empty($post = Post::where('author_id','=',$author_id)->get())){
+   
    array_push($news,$post);
 
+   }
 
 }
     
