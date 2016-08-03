@@ -95,11 +95,24 @@ class PostController extends BaseController
         
     }
 
+   
+   
+   $news = array();
+
+   foreach($followinglist as $author_id){
+
+
+   $post = Post::where('author_id','=',$author_id)->get();
+
+   array_push($news,$post);
+
+
+}
+    
 
 
 
-    return response()->json($followinglist);
-
+return response()->json($news);
 
 
 
