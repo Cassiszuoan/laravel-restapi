@@ -109,7 +109,7 @@ class UserController extends BaseController
 
         $user = User::where('accesstoken','=',$input['token'])->first();
 
-        if(!is_null($input['name'])){
+        if(!empty($input['name'])){
 
           $user->name= $input['name'];
           $user->save();
@@ -117,7 +117,7 @@ class UserController extends BaseController
         }
 
 
-        if(!is_null($input['about'])){
+        if(!empty($input['about'])){
 
           $user->userbio= $input['about'];
           $user->save();
@@ -126,7 +126,7 @@ class UserController extends BaseController
 
 
 
-        if(!is_null($input['website'])){
+        if(!empty($input['website'])){
 
           $user->userweb= $input['website'];
           $user->save();
