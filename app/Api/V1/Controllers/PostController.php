@@ -109,6 +109,12 @@ class PostController extends BaseController
 
    }
 
+   else{
+  
+    array_push($news,'no Posts');
+
+   }
+
 }
     
 
