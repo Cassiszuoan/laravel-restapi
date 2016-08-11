@@ -163,6 +163,7 @@ return [
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Moloquent'  => Jenssegers\Mongodb\Eloquent\Model::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
