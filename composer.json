@@ -10,7 +10,8 @@
 	    "tymon/jwt-auth": "0.5.*",
         "dingo/api": "1.0.*@dev",
         "barryvdh/laravel-cors": "^0.7.1",
-        "jenssegers/mongodb": "^3.0"
+        "jenssegers/mongodb": "^3.0",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
