@@ -16,6 +16,7 @@ $api->version('v1', function ($api) {
 	$api->get('user/id/{id}','App\Api\V1\Controllers\UserController@getUserById');
 	$api->post('user/search','App\Api\V1\Controllers\UserController@search');
 	$api->post('user/update','App\Api\V1\Controllers\UserController@update');
+	$api->post('user/upload','App\Api\V1\Controllers\UserController@uploadImage');
 	$api->post('connection/connect','App\Api\V1\Controllers\ConnectionController@connect');
 	$api->post('connection/search_following','App\Api\V1\Controllers\ConnectionController@search_following');
     $api->post('connection/search_followers','App\Api\V1\Controllers\ConnectionController@search_followed');
