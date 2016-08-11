@@ -43,6 +43,9 @@ if (!file_exists('uploads/')) {
     mkdir('uploads/', 0777, true);
     $uploaddir = 'uploads/';
 }
+else{
+  $uploaddir = 'uploads/';
+}
 // PS: custom filed name : pic
 $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
 
