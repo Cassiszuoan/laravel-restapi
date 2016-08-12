@@ -73,10 +73,10 @@ else{
 
 
 
-// $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
+$uploadfile = $uploaddir . $filename;
 
 
-if (move_uploaded_file($_FILES['pic']['tmp_name'], $path)) {
+if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
    $array = array ("code" => "1", "message" => "successfully");  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
