@@ -32,19 +32,33 @@ class UserController extends BaseController
 
 
 
-public function uploadImage(){
+public function uploadImage(Request $request){
+
+$input = $request->all();
+
+$validator = Validator::make($input,[
+            'token'       =>   'required',
+
+        ]);
 
 
 
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+$user = User::where('accesstoken','=',$input['token'])->first();
+$user_id = $user->_id;
 
 
 
-if (!file_exists('uploads/')) {
-    mkdir('uploads/', 0777, true);
-    $uploaddir = 'uploads/';
+if (!file_exists('uploads/{user_id}/avatar')) {
+    mkdir('uploads/{user_id}/avatar', 0777, true);
+    $uploaddir = 'uploads/{user_id}/avatar';
 }
 else{
-  $uploaddir = 'uploads/';
+  $uploaddir = 'uploads/{user_id}/avatar';
 }
 // PS: custom filed name : pic
 $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
