@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use JWTAuth;
 use Validator;
+use Image;
 use Config;
 use App\User;
 use Illuminate\Mail\Message;
