@@ -53,7 +53,7 @@ $user = User::where('accesstoken','=',$input['token'])->first();
 $user_id = $user->_id;
 
 
-$file = $_FILES['pic']['name'];
+
 $filename = time() . '.' . basename($_FILES['pic']['name']);
 
 $path = "uploads/{$user_id}/avatar" . $filename;
@@ -70,7 +70,7 @@ else{
 // PS: custom filed name : pic
 // $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
 
-$img = Image::make($file);
+$img = Image::make($_FILES['pic']['name']);
 
 
 
