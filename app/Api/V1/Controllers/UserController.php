@@ -56,7 +56,7 @@ $user_id = $user->_id;
 $file = $request->file('pic');
 $filename = time() . '.' . basename($_FILES['pic']['name']);
 
-$path = public_path("uploads/{$user_id}/avatar" . $filename);
+$path = "uploads/{$user_id}/avatar" . $filename;
 
 
 
