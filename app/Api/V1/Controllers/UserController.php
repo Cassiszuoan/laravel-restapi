@@ -64,7 +64,9 @@ else{
 // PS: custom filed name : pic
 // $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
 
-$img = Image::make($_FILES['pic']['name']);
+
+
+$img = Image::make($_FILES['pic']['name']->getRealPath());
 
 if ($img->save($uploaddir)) {
    $array = array ("code" => "1", "message" => "successfully");  
