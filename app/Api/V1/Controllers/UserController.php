@@ -69,14 +69,14 @@ else{
   $uploaddir = $path;
 }
 // PS: custom filed name : pic
+
+
+
+
 // $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
 
-$img = Image::make($_FILES['pic']['name']->getRealPath());
 
-
-
-
-if ($img->save($uploaddir)) {
+if (move_uploaded_file($_FILES['pic']['tmp_name'], $path)) {
    $array = array ("code" => "1", "message" => "successfully");  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
