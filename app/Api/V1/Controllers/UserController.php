@@ -70,7 +70,7 @@ else{
 // PS: custom filed name : pic
 // $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
 
-$img = Image::make($file->getRealPath()->save());
+$img = Image::make($file);
 
 
 
