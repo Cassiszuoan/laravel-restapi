@@ -53,7 +53,7 @@ $user = User::where('accesstoken','=',$input['token'])->first();
 $user_id = $user->_id;
 
 
-$file = $request->file('pic');
+$file = $_FILES['pic']['name'];
 $filename = time() . '.' . basename($_FILES['pic']['name']);
 
 $path = "uploads/{$user_id}/avatar" . $filename;
