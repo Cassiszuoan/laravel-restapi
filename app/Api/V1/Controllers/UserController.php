@@ -51,7 +51,7 @@ $validator = Validator::make($input,[
 $user = User::where('accesstoken','=',$input['token'])->first();
 $user_id = $user->_id;
 
-$path = "uploads/"+$user_id+"/avatar";
+$path = "uploads/{$user_id}/avatar";
 
 if (!file_exists($path)) {
     mkdir($path, 0777, true);
