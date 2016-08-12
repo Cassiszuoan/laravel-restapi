@@ -52,7 +52,13 @@ $validator = Validator::make($input,[
 $user = User::where('accesstoken','=',$input['token'])->first();
 $user_id = $user->_id;
 
-$path = "uploads/{$user_id}/avatar";
+
+$file = $request->file('pic');
+$filename = time() . '.' . basename($_FILES['pic']['name']);
+
+$path = public_path("uploads/{$user_id}/avatar" . $filename);
+
+
 
 if (!file_exists($path)) {
     mkdir($path, 0777, true);
@@ -64,8 +70,10 @@ else{
 // PS: custom filed name : pic
 // $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
 
-$file = $request->file('pic');
-$img = Image::make($file->getRealPath());
+$img = Image::make($file->getRealPath()->save());
+
+
+
 
 if ($img->save($uploaddir)) {
    $array = array ("code" => "1", "message" => "successfully");  
