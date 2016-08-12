@@ -51,14 +51,14 @@ $validator = Validator::make($input,[
 $user = User::where('accesstoken','=',$input['token'])->first();
 $user_id = $user->_id;
 
+$path = "uploads/"+$user_id+"/avatar";
 
-
-if (!file_exists('uploads/{user_id}/avatar')) {
-    mkdir('uploads/{user_id}/avatar', 0777, true);
-    $uploaddir = 'uploads/{user_id}/avatar';
+if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+    $uploaddir = $path;
 }
 else{
-  $uploaddir = 'uploads/{user_id}/avatar';
+  $uploaddir = $path;
 }
 // PS: custom filed name : pic
 $uploadfile = $uploaddir . basename($_FILES['pic']['name']);
