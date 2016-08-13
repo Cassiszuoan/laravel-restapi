@@ -73,13 +73,32 @@ else{
 
 
 
-$uploadfile = $uploaddir . $filename;
+$uploadfile = $uploaddir . "avatar";
 
 
-if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
-   $array = array ("code" => "1", "message" => "successfully");  
+if(file_exists($uploadfile)){
+
+  unlink($uploadfile);
+
+  if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
+   $array = array ("code" => "1", "message" => "successfully","image url"=>$uploaddir);  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
+}
+
+
+}
+
+
+else{
+
+if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
+   $array = array ("code" => "1", "message" => "successfully","image url"=>$uploaddir);  
+} else {
+   $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
+}
+
+
 }
 
 echo json_encode ( $array );

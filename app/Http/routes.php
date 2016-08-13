@@ -31,7 +31,7 @@ Route::get('/', function () {
 //     return $response;
 // });
 
-Route::get('uploads/{filename}', function ($filename)
+Route::get('uploads/{id}/{filename}', function ($filename,$id)
 {
-    return Image::make(storage_path() . '/' . $filename)->response();
+    return Image::make(storage_path() . '/' . $id . '/' . $filename)->response();
 });
