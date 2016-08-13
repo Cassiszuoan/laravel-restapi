@@ -28,6 +28,7 @@ class UserTransformer extends TransformerAbstract
         return [
             'id'            => $user->_id,
             'name'          => $user->name,
+            'avatar'        => $user->avatar,
             'email'         => $user->email,
             'bio'           => $user->userbio,
             'web'           => $user->userweb,
