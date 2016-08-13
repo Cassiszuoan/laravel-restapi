@@ -81,7 +81,7 @@ if(file_exists($uploadfile)){
   unlink($uploadfile);
 
   if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
-   $array = array ("code" => "1", "message" => "successfully","image url"=>$uploaddir);  
+   $array = array ("code" => "1", "message" => "successfully","url"=>"140.136.155.143/". $uploadfile);  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
 }
@@ -93,7 +93,7 @@ if(file_exists($uploadfile)){
 else{
 
 if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
-   $array = array ("code" => "1", "message" => "successfully","image url"=>$uploaddir);  
+   $array = array ("code" => "1", "message" => "successfully","url"=>"140.136.155.143/". $uploadfile);  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
 }
