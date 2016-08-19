@@ -25,6 +25,7 @@ $api->version('v1', function ($api) {
 	$api->post('post/store','App\Api\V1\Controllers\PostController@store');
 	$api->post('post/search','App\Api\V1\Controllers\PostController@search');
 	$api->post('post/feed','App\Api\V1\Controllers\PostController@news_feed');
+	$api->post('post/upload','App\Api\V1\Controllers\PostController@image_upload');
 
 
 	// example of protected route

@@ -35,3 +35,9 @@ Route::get('uploads/{id}/{filename}', function ($filename,$id)
 {
     return Image::make(storage_path() . '/' . $id . '/' . $filename)->response();
 });
+
+Route::get('uploads/{id}/posts/{filename}', function ($filename,$id)
+{
+    return Image::make(storage_path() . '/' . $id . '/' . $filename)->response();
+});
+

@@ -20,6 +20,8 @@ use Config;
 
 use Dingo\Api\Exception\ValidationHttpException;
 
+use Intervention\Image\ImageManager;
+
 
 
 
@@ -51,6 +53,88 @@ class PostController extends BaseController
 
 
         return response()->json($posts);
+
+
+    }
+
+
+    public function image_upload(Request $request){
+
+      $input = $request->all();
+
+      $validator = Validator::make($input,[
+            'token'       =>   'required',
+            'post_id'     =>   'required',
+
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+
+$user = User::where('accesstoken','=',$input['token'])->first();
+$user_id = $user->_id;
+$post_id = $input['post_id'];
+$post = Post::where('_id','=',$post_id)->first();
+
+
+$filename = time() . '.' . basename($_FILES['pic']['name']);
+
+$path = "uploads/{$user_id}/posts/";
+
+
+
+if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+    $uploaddir = $path;
+}
+else{
+  $uploaddir = $path;
+}
+// PS: custom filed name : pic
+
+
+
+
+$uploadfile = $uploaddir . $post_id;
+
+
+if(file_exists($uploadfile)){
+
+  unlink($uploadfile);
+
+  if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
+
+   $post->imgurl =  "http://140.136.155.143/". $uploadfile;
+   $post->save();
+   $array = array ("code" => "1", "message" => "successfully","url"=>"140.136.155.143/". $uploadfile);  
+} else {
+   $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
+}
+
+
+}
+
+
+else{
+
+if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
+   $post->imgurl =  "http://140.136.155.143/". $uploadfile;
+   $post->save();
+   $array = array ("code" => "1", "message" => "successfully","url"=>"140.136.155.143/". $uploadfile);  
+} else {
+   $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
+}
+
+
+}
+
+echo json_encode ( $array );
+
 
 
     }
