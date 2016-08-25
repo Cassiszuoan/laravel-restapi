@@ -125,6 +125,7 @@ if(file_exists($uploadfile)){
 else{
 
 if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
+   $imgurl = "http://140.136.155.143/". $uploadfile;
    $post->imgurl =  "http://140.136.155.143/". $uploadfile;
    $post->save();
    $img = Image::make($imgurl);
