@@ -111,6 +111,8 @@ if(file_exists($uploadfile)){
 
    $post->imgurl =  "http://140.136.155.143/". $uploadfile;
    $post->save();
+
+   $img = Image::make($uploadfile)->resize(300, 300)->insert($uploadfile . '_300*300');
    $array = array ("code" => "1", "message" => "successfully","url"=>"140.136.155.143/". $uploadfile);  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
@@ -125,6 +127,7 @@ else{
 if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
    $post->imgurl =  "http://140.136.155.143/". $uploadfile;
    $post->save();
+   $img = Image::make($uploadfile)->resize(300, 300)->insert($uploadfile . '_300*300');
    $array = array ("code" => "1", "message" => "successfully","url"=>"140.136.155.143/". $uploadfile);  
 } else {
    $array = array ("code" => "0", "message" => "Possible file upload attack!".$_FILES['pic']['name']); 
