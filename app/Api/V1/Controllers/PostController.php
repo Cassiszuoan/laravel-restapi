@@ -238,6 +238,7 @@ return response()->json($news);
         $author = User::where('accesstoken','=',$input['token'])->first();
         $post->author_name=$author->name;
         $post->author_id=$author->_id;
+        $post->author_imgurl=$author->avatar;
         $post->content=$input['content'];
         $post->save();
 
