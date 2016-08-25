@@ -20,7 +20,7 @@ use Config;
 
 use Dingo\Api\Exception\ValidationHttpException;
 
-use Intervention\Image\ImageManager;
+use Intervention\Image\Facades\Image as Image;
 
 
 

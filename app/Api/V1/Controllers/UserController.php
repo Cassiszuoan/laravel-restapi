@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Dingo\Api\Exception\ValidationHttpException;
 use App\Api\V1\Transformers\UserTransformer;
-
+use Intervention\Image\Facades\Image as Image;
 
 class UserController extends BaseController
 {
