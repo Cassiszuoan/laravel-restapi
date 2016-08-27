@@ -238,7 +238,7 @@ else{
 usort($news, function($a1, $a2) {
    $v1 = strtotime($a1['created_at']);
    $v2 = strtotime($a2['created_at']);
-   return $v1 - $v2; // $v2 - $v1 to reverse direction
+   return $v2 - $v1; // $v2 - $v1 to reverse direction
 });
 
 
