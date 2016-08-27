@@ -223,15 +223,8 @@ echo json_encode ( $array );
 if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
 
   array_push($news,$self_post);
-}
 
-else{
-
-
-}
-
-
-// 讓post照時間排序
+  // 讓post照時間排序
 
     
 
@@ -240,6 +233,15 @@ usort($news, function($a1, $a2) {
    $v2 = strtotime($a2['created_at']);
    return $v2 - $v1; // $v2 - $v1 to reverse direction
 });
+}
+
+else{
+
+
+}
+
+
+
 
 
 return response()->json($news);
