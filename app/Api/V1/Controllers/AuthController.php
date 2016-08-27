@@ -140,6 +140,7 @@ class AuthController extends Controller
         $user->password=$userData['fb_id'];
         $user->facebook_id=$userData['fb_id'];
         $user->facebook_accesstoken=$userData['fb_token'];
+        $user->avatar=$userData['avatar'];
         // $user->userbio=$userData['userbio'];
         // $user->userweb=$userData['userweb'];
         $user->posts_count=0;

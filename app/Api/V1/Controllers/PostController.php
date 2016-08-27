@@ -175,7 +175,7 @@ echo json_encode ( $array );
     $user = User::where('accesstoken','=',$input['token'])->first();
 
 
-
+    
     $user_from_id = $user->_id;
 
     $connection = Connection::where('user_from_id','=',$user_from_id)->get();
@@ -193,7 +193,9 @@ echo json_encode ( $array );
     }
 
    
-   
+  
+
+   // 這邊將追蹤中的post加入陣列
    $news = array();
 
    foreach($followinglist as $author_id){
@@ -208,11 +210,33 @@ echo json_encode ( $array );
 
    else{
   
-    array_push($news,'no Posts');
+   
 
    }
 
+
 }
+
+
+// 這邊將自己的post 加入陣列
+
+if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
+
+  array_push($news,$self_post);
+}
+
+else{
+
+
+}
+
+
+// 讓post照時間排序
+
+function sortFunction( $a, $b ) {
+return strtotime($a["created_at"]) - strtotime($b["created_at"]);
+}
+usort($news, "sortFunction");
     
 
 
