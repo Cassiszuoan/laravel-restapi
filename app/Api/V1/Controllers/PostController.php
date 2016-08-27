@@ -224,15 +224,7 @@ if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
 
   array_push($news,$self_post);
 
-  // 讓post照時間排序
-
-    
-
-usort($news, function($a1, $a2) {
-   $v1 = strtotime($a1['created_at']);
-   $v2 = strtotime($a2['created_at']);
-   return $v2 - $v1; // $v2 - $v1 to reverse direction
-});
+ 
 }
 
 else{
@@ -242,7 +234,15 @@ else{
 
 
 
+ // 讓post照時間排序
 
+    
+
+usort($news, function($a1, $a2) {
+   $v1 = strtotime($a1['created_at']);
+   $v2 = strtotime($a2['created_at']);
+   return $v2 - $v1; // $v2 - $v1 to reverse direction
+});
 
 return response()->json($news);
 
