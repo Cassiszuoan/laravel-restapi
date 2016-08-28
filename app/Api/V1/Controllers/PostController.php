@@ -200,17 +200,11 @@ echo json_encode ( $array );
    $news = array();
    foreach($followinglist as $author_id){
 
-   $following_post = Post::where('author_id','=',$author_id)->get();
+   $following_post = Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
 
    if(!empty($following_post)){
 
-   
-
-
-    
-
-
-   // 這邊將自己的post 加入陣列
+    array_push($news,$following_post);
 
    
 
@@ -228,7 +222,7 @@ echo json_encode ( $array );
 
 
 
-if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
+if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get())){
 
    array_push($news,$self_post);
     
@@ -242,20 +236,6 @@ else{
 
 }
 
-
-
-
-
-function date_compare($a, $b){
-    if ($a['created_at'] > $b['created_at']) {
-        return -1;
-    } else if ($a['created_at'] < $b['created_at']) {
-        return 1;
-    } else {
-        return 0;
-    }
-} 
-usort($news, array($this, "date_compare"));
 
 
 
