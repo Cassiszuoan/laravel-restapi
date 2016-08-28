@@ -211,32 +211,43 @@ echo json_encode ( $array );
 
    // 這邊將自己的post 加入陣列
 
-   if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
-
-  array_push($news,$self_post);
-
-
-
-      $news = $news->sortBy(function($news)
-    {
-      return $news->created_at;
-    });
-
-
-}
+   
 
    }
 
    else{
   
 
-    return response()->json(['message' => ' User has no News Feed', 'status code' => '200']);
    
 
    }
 
 
 }
+
+
+
+if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
+
+   array_push($news,$self_post);
+    
+
+
+}
+
+else{
+
+
+  
+}
+
+
+
+
+$news = $news->sortBy(function($news)
+    {
+      return $news->created_at;
+    });
 
 
 
