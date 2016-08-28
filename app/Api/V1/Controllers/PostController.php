@@ -197,7 +197,7 @@ echo json_encode ( $array );
 
    // 這邊將追蹤中的post加入陣列
    
-   $news = new Post;
+   $news = array();
    foreach($followinglist as $author_id){
 
    $following_post = Post::where('author_id','=',$author_id)->get();
@@ -205,10 +205,9 @@ echo json_encode ( $array );
    if(!empty($following_post)){
 
    
-   $news = $news->merge($following_post);
 
 
-   // array_push($news,$post);
+    
 
 
    // 這邊將自己的post 加入陣列
@@ -231,7 +230,7 @@ echo json_encode ( $array );
 
 if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
 
-   $news = $news->merge($self_post);
+   array_push($news,$self_post);
     
 
 
@@ -246,11 +245,11 @@ else{
 
 
 
-$news = $news->sort(function ($a, $b) {
+// $news = $news->sort(function ($a, $b) {
 
-    return $a->created_at - $b->created_at;
+//     return $a->created_at - $b->created_at;
 
-});
+// });
 
 
 
