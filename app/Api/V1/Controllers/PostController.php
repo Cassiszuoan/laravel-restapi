@@ -203,13 +203,34 @@ echo json_encode ( $array );
     
 
    if(!empty($post = Post::where('author_id','=',$author_id)->get())){
+
+
    
    array_push($news,$post);
+
+
+   // 這邊將自己的post 加入陣列
+
+   if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
+
+  array_push($news,$self_post);
+
+
+
+      $news = $news->sortBy(function($news)
+    {
+      return $news->created_at;
+    });
+
+
+}
 
    }
 
    else{
   
+
+    return response()->json(['message' => ' User has no News Feed', 'status code' => '200']);
    
 
    }
@@ -218,37 +239,12 @@ echo json_encode ( $array );
 }
 
 
-// 這邊將自己的post 加入陣列
-
-if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
-
-  array_push($news,$self_post);
-
- 
-}
-
-else{
-
-
-}
-
-
-
- // 讓post照時間排序
-
-    
-
-usort($news, function($a1, $a2) {
-   $v1 = strtotime($a1['created_at']);
-   $v2 = strtotime($a2['created_at']);
-   return $v2 - $v1; // $v2 - $v1 to reverse direction
-});
 
 return response()->json($news);
 
 
 
-    }
+}
 
 
 
@@ -293,5 +289,45 @@ return response()->json($news);
 
 
 	}
+
+
+
+  public function delete(Request $request){
+
+
+
+         $input = $request->all();
+        
+         $validator = Validator::make($input,[
+            'object_id'       =>   'required',
+            
+        ]);
+
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+        $post = Post::where('_id','=',$input['object_id'])->first();
+
+
+        if(!$post){
+    
+         return $this->response->error('post not Found', 500);
+
+        }
+        
+        $post->delete();
+
+
+        return response()->json(['message' => 'Post has been deleted', 'status code' => '200']);
+
+        
+        
+
+
+
+  }
 
 }
