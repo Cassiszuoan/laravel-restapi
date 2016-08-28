@@ -252,6 +252,15 @@ else{
 // });
 
 
+function date_compare($a, $b)
+{
+    $t1 = strtotime($a['created_at']);
+    $t2 = strtotime($b['created_at']);
+    return $t1 - $t2;
+}    
+usort($news, 'date_compare');
+
+
 
 
 return response()->json($news);
