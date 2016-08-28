@@ -238,16 +238,18 @@ if(!empty($self_post = Post::where('author_id','=',$user_from_id)->get())){
 else{
 
 
-  
+
 }
 
 
 
 
-$news = $news->sortBy(function($news)
-    {
-      return $news->created_at;
-    });
+$news = $news->sort(function ($a, $b) {
+
+    return $a->created_at - $b->created_at;
+
+});
+
 
 
 
