@@ -258,7 +258,7 @@ function date_compare($a, $b)
     $t2 = strtotime($b['created_at']);
     return $t1 - $t2;
 }    
-usort($news, 'date_compare');
+usort($news, array($this, "date_compare"));
 
 
 
