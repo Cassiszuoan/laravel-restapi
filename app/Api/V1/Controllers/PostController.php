@@ -246,12 +246,15 @@ else{
 
 
 
-function date_compare($a, $b)
-{
-    $t1 = strtotime($a['created_at']);
-    $t2 = strtotime($b['created_at']);
-    return $t2 - $t1;
-}    
+function date_compare($a, $b){
+    if ($a['created_at'] > $b['created_at']) {
+        return -1;
+    } else if ($a['created_at'] < $b['created_at']) {
+        return 1;
+    } else {
+        return 0;
+    }
+} 
 usort($news, array($this, "date_compare"));
 
 
