@@ -245,18 +245,12 @@ else{
 
 
 
-// $news = $news->sort(function ($a, $b) {
-
-//     return $a->created_at - $b->created_at;
-
-// });
-
 
 function date_compare($a, $b)
 {
     $t1 = strtotime($a['created_at']);
     $t2 = strtotime($b['created_at']);
-    return $t1 - $t2;
+    return $t2 - $t1;
 }    
 usort($news, array($this, "date_compare"));
 
