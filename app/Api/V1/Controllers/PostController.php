@@ -197,7 +197,7 @@ echo json_encode ( $array );
 
    // 這邊將追蹤中的post加入陣列
    
-
+   $news = new Post;
    foreach($followinglist as $author_id){
 
    $following_post = Post::where('author_id','=',$author_id)->get();
