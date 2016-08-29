@@ -48,7 +48,7 @@ class PostController extends BaseController
 
         $author = User::where('accesstoken','=',$input['token'])->first();
         $author_id = $author->_id;
-        $posts =  Post::where('author_id','=',$author_id)->get();
+        $posts =  Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
 
 
 
