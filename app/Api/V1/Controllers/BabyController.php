@@ -195,6 +195,8 @@ echo json_encode ( $array );
         $validator = Validator::make($input,[
             'token' => 'required',
             'name'=>'required',
+            'birth'=>'required',
+            'blood'=>'required',
         ]);
 
 
