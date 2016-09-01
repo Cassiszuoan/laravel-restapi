@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\User;
+use App\Post;
 
-use App\Baby;
+use App\User;
 
 use App\Connection;
 
@@ -25,11 +25,11 @@ use Intervention\Image\Facades\Image as Image;
 
 
 
-class BabyController extends BaseController
+class TestController extends BaseController
 {
 
     public function index() {
-		return Baby::all();
+		return Post::all();
 	}
 
 
@@ -46,13 +46,13 @@ class BabyController extends BaseController
             throw new ValidationHttpException($validator->errors()->all());
         }
 
-        $parent = User::where('accesstoken','=',$input['token'])->first();
-        $parent_id = $parent->_id;
-        $Babys =  Baby::where('parent_id','=',$parent_id)->orderBy('created_at','DESC')->get();
+        $author = User::where('accesstoken','=',$input['token'])->first();
+        $author_id = $author->_id;
+        $posts =  Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
 
 
 
-        return response()->json($Babys);
+        return response()->json($posts);
 
 
     }
@@ -72,12 +72,12 @@ class BabyController extends BaseController
             throw new ValidationHttpException($validator->errors()->all());
         }
 
-        $parent = User::where('_id','=',$input['id'])->first();
-        $Babys =  Baby::where('parent_id','=',$input['id'])->orderBy('created_at','DESC')->get();
+        $author = User::where('_id','=',$input['id'])->first();
+        $posts =  Post::where('author_id','=',$input['id'])->orderBy('created_at','DESC')->get();
 
 
 
-        return response()->json($Babys);
+        return response()->json($posts);
 
 
     }
@@ -90,7 +90,7 @@ class BabyController extends BaseController
 
       $validator = Validator::make($input,[
             'token'       =>   'required',
-            'Baby_id'     =>   'required',
+            'post_id'     =>   'required',
 
         ]);
 
@@ -104,13 +104,13 @@ class BabyController extends BaseController
 
 $user = User::where('accesstoken','=',$input['token'])->first();
 $user_id = $user->_id;
-$Baby_id = $input['Baby_id'];
-$Baby = Baby::where('_id','=',$Baby_id)->first();
+$post_id = $input['post_id'];
+$post = Post::where('_id','=',$post_id)->first();
 
 
 $filename = time() . '.' . basename($_FILES['pic']['name']);
 
-$path = "uploads/{$user_id}/Babys/";
+$path = "uploads/{$user_id}/posts/";
 
 
 
@@ -126,7 +126,7 @@ else{
 
 
 
-$uploadfile = $uploaddir . $Baby_id;
+$uploadfile = $uploaddir . $post_id;
 
 
 if(file_exists($uploadfile)){
@@ -135,9 +135,9 @@ if(file_exists($uploadfile)){
 
   if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
    $imgurl = "http://140.136.155.143/". $uploadfile;
-   $Baby->imgurl =  "http://140.136.155.143/". $uploadfile;
-   $Baby->small_imgurl = "http://140.136.155.143/". $uploadfile . '_300*300';
-   $Baby->save();
+   $post->imgurl =  "http://140.136.155.143/". $uploadfile;
+   $post->small_imgurl = "http://140.136.155.143/". $uploadfile . '_300*300';
+   $post->save();
 
 
    $img = Image::make($imgurl);
@@ -156,9 +156,9 @@ else{
 
 if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)) {
    $imgurl = "http://140.136.155.143/". $uploadfile;
-   $Baby->imgurl =  "http://140.136.155.143/". $uploadfile;
-   $Baby->small_imgurl = "http://140.136.155.143/". $uploadfile . '_300*300';
-   $Baby->save();
+   $post->imgurl =  "http://140.136.155.143/". $uploadfile;
+   $post->small_imgurl = "http://140.136.155.143/". $uploadfile . '_300*300';
+   $post->save();
 
    $img = Image::make($imgurl);
    $img->resize(300, 300);
@@ -180,7 +180,100 @@ echo json_encode ( $array );
 
 
 
+    public function news_feed(Request $request){
+
+
+     $input = $request->all();
+
+
+
+    $validator = Validator::make($input,[
+            'token' => 'required',
+            
+     ]);
+
+ 
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+    $user = User::where('accesstoken','=',$input['token'])->first();
+
+
     
+    $user_from_id = $user->_id;
+
+    $connection = Connection::where('user_from_id','=',$user_from_id)->get();
+
+
+    $followinglist = array();
+
+
+    foreach($connection as $i){
+
+    $followinguser = $i->user_to_id;
+
+    array_push($followinglist,$followinguser);
+        
+    }
+
+   
+  
+
+   // 這邊將追蹤中的post加入陣列
+   
+   $news = array();
+   foreach($followinglist as $author_id){
+
+   $following_post = Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
+
+   if(!empty($following_post)){
+
+    array_push($news,$following_post);
+
+   
+
+   }
+
+   else{
+  
+
+   
+
+   }
+
+
+}
+
+
+
+if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get())){
+
+   array_push($news,$self_post);
+    
+
+
+}
+
+else{
+
+
+
+}
+
+
+
+
+
+return response()->json($news);
+
+
+
+}
+
+
+
 
 
 
@@ -194,7 +287,7 @@ echo json_encode ( $array );
 
         $validator = Validator::make($input,[
             'token' => 'required',
-            'name'=>'required',
+            'content'=>'required',
         ]);
 
 
@@ -203,23 +296,21 @@ echo json_encode ( $array );
         }
 
 
-        $Baby = new Baby;
-        $parent = User::where('accesstoken','=',$input['token'])->first();
-        $Baby->baby_name=$input['name'];
-        $Baby->baby_birth=$input['birth'];
-        $Baby->baby_blood=$input['blood'];
-        $Baby->parent_name=$parent->name;
-        $Baby->parent_id=$parent->_id;
-        
-        $Baby->save();
+        $post = new Post;
+        $author = User::where('accesstoken','=',$input['token'])->first();
+        $post->author_name=$author->name;
+        $post->author_id=$author->_id;
+        $post->author_imgurl=$author->avatar;
+        $post->content=$input['content'];
+        $post->save();
 
         
-        return response()->json($Baby);
+        return response()->json($post);
 
 
 
-			if ( !$Baby->save() ) {
-				return $this->response->error('could_not_store_Baby', 500);
+			if ( !$post->save() ) {
+				return $this->response->error('could_not_store_post', 500);
 			}
 
 
@@ -244,19 +335,19 @@ echo json_encode ( $array );
         }
 
 
-        $Baby = Baby::where('_id','=',$input['object_id'])->first();
+        $post = Post::where('_id','=',$input['object_id'])->first();
 
 
-        if(!$Baby){
+        if(!$post){
     
-         return $this->response->error('Baby not Found', 500);
+         return $this->response->error('post not Found', 500);
 
         }
         
-        $Baby->delete();
+        $post->delete();
 
 
-        return response()->json(['message' => 'Baby has been deleted', 'status code' => '200']);
+        return response()->json(['message' => 'Post has been deleted', 'status code' => '200']);
 
         
         

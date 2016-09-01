@@ -38,6 +38,8 @@ $api->version('v1', function ($api) {
 	$api->post('baby/delete','App\Api\V1\Controllers\BabyController@delete');
 
 
+
+    $api->get('test/index','App\Api\V1\Controllers\TestController@store');
 	// example of protected route
 	$api->get('protected', ['middleware' => ['api.auth'], function () {		
 		return \App\User::all();
