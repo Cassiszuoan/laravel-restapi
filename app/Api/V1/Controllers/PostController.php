@@ -236,16 +236,8 @@ echo json_encode ( $array );
 
    }
 
-   else{
-  
-
-   
-
-   }
-
 
 }
-
 
 
 if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get())){
@@ -256,11 +248,7 @@ if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('crea
 
 }
 
-else{
 
-
-
-}
 
 
 
