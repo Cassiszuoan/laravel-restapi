@@ -58,6 +58,32 @@ class PostController extends BaseController
     }
 
 
+
+    public  function search_by_id(Request $request){
+
+          $input = $request -> all();
+          $validator = Validator::make($input,[
+            'id' => 'required',
+            
+        ]);
+
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        $author = User::where('_id','=',$input['id'])->first();
+        $posts =  Post::where('author_id','=',$input['id'])->orderBy('created_at','DESC')->get();
+
+
+
+        return response()->json($posts);
+
+
+    }
+
+
+
     public function image_upload(Request $request){
 
       $input = $request->all();

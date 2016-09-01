@@ -24,6 +24,7 @@ $api->version('v1', function ($api) {
 	$api->get('post/index','App\Api\V1\Controllers\PostController@index');
 	$api->post('post/store','App\Api\V1\Controllers\PostController@store');
 	$api->post('post/search','App\Api\V1\Controllers\PostController@search');
+	$api->post('post/searchbyid','App\Api\V1\Controllers\PostController@search_by_id');
 	$api->post('post/feed','App\Api\V1\Controllers\PostController@news_feed');
 	$api->post('post/upload','App\Api\V1\Controllers\PostController@image_upload');
 	$api->post('post/delete','App\Api\V1\Controllers\PostController@delete');
