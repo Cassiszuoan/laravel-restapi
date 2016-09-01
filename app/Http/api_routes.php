@@ -33,7 +33,6 @@ $api->version('v1', function ($api) {
 	$api->post('baby/store','App\Api\V1\Controllers\BabyController@store');
 	$api->post('baby/search','App\Api\V1\Controllers\BabyController@search');
 	$api->post('baby/searchbyid','App\Api\V1\Controllers\BabyController@search_by_id');
-	$api->post('baby/feed','App\Api\V1\Controllers\BabyController@news_feed');
 	$api->post('baby/upload','App\Api\V1\Controllers\BabyController@image_upload');
 	$api->post('baby/delete','App\Api\V1\Controllers\BabyController@delete');
 
