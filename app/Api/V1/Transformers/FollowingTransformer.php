@@ -30,7 +30,8 @@ class FollowingTransformer extends TransformerAbstract
 
             'user_id'       => $connection->user_to_id,
             'username'      => $connection->following_user_name,
-            'profile_picture'=> $connection->following_user_img,
+            'profile_picture'=> $connection->avatar,
+
             
        
         
