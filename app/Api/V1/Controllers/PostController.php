@@ -224,29 +224,40 @@ echo json_encode ( $array );
    // 這邊將追蹤中的post加入陣列
    
    $news = array();
-   foreach($followinglist as $author_id){
 
-   $following_post = Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
 
-   if(!empty($following_post)){
-
-    array_push($news,$following_post);
+   $self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get();
 
    
 
-   }
+   foreach($followinglist as $author_id){
+
+   $following_post = Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
+    
+   $total_post = $self_post->merge($following_post);
 
 
-}
+ }
+
+//    if(!empty($following_post)){
+
+//     array_push($news,$following_post);
+
+   
+
+//    }
 
 
-if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get())){
+// }
 
-   array_push($news,$self_post);
+
+// if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get())){
+
+//    array_push($news,$self_post);
     
 
 
-}
+// }
 
 
 
@@ -254,7 +265,9 @@ if(!empty($self_post = Post::where('author_id','=',$user_from_id)->orderBy('crea
 
 
 
-return response()->json($news);
+
+
+return response()->json($total_post);
 
 
 
