@@ -264,7 +264,7 @@ echo json_encode ( $array );
 
 
 
-return response()->json($total_post->orderBy('created_at','DESC'));
+return response()->json($total_post);
 
 
 
