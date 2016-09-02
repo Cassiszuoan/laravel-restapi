@@ -69,6 +69,8 @@ class ConnectionController extends BaseController
 
         $followinguser = User::where('_id','=',$user_to_id)->first();
 
+        $i->avatar = $followinguser->avatar;
+
         $i->following_user_name = $followinguser->name; 
 
         $i->save();
@@ -143,6 +145,8 @@ class ConnectionController extends BaseController
         $user_from_id = $i->user_from_id;
 
         $followeruser = User::where('_id','=',$user_from_id)->first();
+
+        $i->avatar = $followeruser->avatar;
 
         $i->follower_user_name = $followeruser->name; 
 
