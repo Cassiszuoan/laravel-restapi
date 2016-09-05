@@ -165,7 +165,7 @@ echo json_encode ( $array );
             throw new ValidationHttpException($validator->errors()->all());
         }
 
-      $user = User::where('email','=',$input['email'])->get();
+      $user = User::where('email','like',$input['email'])->get();
       return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
     }
 
