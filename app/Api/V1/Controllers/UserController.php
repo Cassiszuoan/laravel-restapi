@@ -168,7 +168,7 @@ echo json_encode ( $array );
 
       $email = $input['email'];
 
-      $user = User::where('email','like','%'+$email+'%')->get();
+      $user = User::where('email','like','%gmail%')->get();
       return $this->response->collection($user, new UserTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
     }
 
