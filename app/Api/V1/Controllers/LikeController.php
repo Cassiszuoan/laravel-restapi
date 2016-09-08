@@ -133,7 +133,7 @@ class LikeController extends BaseController
 
         $user_id = $user->_id;
 
-
+        $post_id = $input['post_id'];
     
         $like = Like::where('user_id','=',$user_id)->where('post_id','=',$input['post_id'])->first();
 
