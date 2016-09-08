@@ -37,6 +37,12 @@ $api->version('v1', function ($api) {
 	$api->post('baby/delete','App\Api\V1\Controllers\BabyController@delete');
 
 
+    $api->post('like/press_like','App\Api\V1\Controllers\LikeController@press_like');
+    $api->post('like/cancel_like','App\Api\V1\Controllers\LikeController@cancel_like');
+
+
+
+
 
     $api->get('test/index','App\Api\V1\Controllers\TestController@store');
 	// example of protected route
