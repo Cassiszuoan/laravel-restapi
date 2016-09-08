@@ -54,6 +54,7 @@ class LikeController extends BaseController
 
 
         $accesstoken = $input['token'];
+        $post_id = $input['post_id'];
 
         $user = User::where('accesstoken','=',$accesstoken)->first();
 
