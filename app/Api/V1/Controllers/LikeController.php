@@ -62,7 +62,7 @@ class LikeController extends BaseController
         $user_name= $user->name;
 
 
-        $check_like = Like::where('user_id','=',$user_id)->where('post_id','=',$post_id);
+        $check_like = Like::where('user_id','=',$user_id)->where('post_id','=',$post_id)->first();
 
 
         if(empty($check_like)){
@@ -159,7 +159,7 @@ class LikeController extends BaseController
         }
 
 
-        $liked_post = Post::where('_id','=','post_id');
+        $liked_post = Post::where('_id','=','post_id')->first();
         $liked_post->likes=$count;
         $liked_post->save();
         
