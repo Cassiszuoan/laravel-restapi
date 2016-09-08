@@ -61,6 +61,14 @@ class LikeController extends BaseController
         $user_id = $user->_id;
         $user_name= $user->name;
 
+
+        $check_like = Like::where('user_id','=',$user_id)->where('post_id','=',$post_id);
+
+
+        if(empty($check_like)){
+
+
+
         $like = new Like;
         $like->user_id = $user_id;
         $like->post_id = $post_id;
@@ -72,6 +80,24 @@ class LikeController extends BaseController
         $count = Like::where('user_id','=',$user_id)->where('post_id','=',$post_id)->count();
         $liked_post->likes = $count;
         $liked_post->save();
+
+
+
+        }
+
+
+        else {
+
+
+        return $this->response->error('Like has already pressed', 500);
+
+
+        }
+
+        
+
+
+        
 
 
            
@@ -109,7 +135,7 @@ class LikeController extends BaseController
 
 
     
-        $like = Connection::where('user_id','=',$user_id)->where('post_id','=',$input['post_id'])->first();
+        $like = Like::where('user_id','=',$user_id)->where('post_id','=',$input['post_id'])->first();
 
 
         if(!$like){
