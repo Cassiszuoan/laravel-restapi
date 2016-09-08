@@ -159,7 +159,7 @@ class LikeController extends BaseController
         }
 
 
-        $liked_post = Post::where('_id','=','post_id')->first();
+        $liked_post = Post::where('_id','=',$post_id)->first();
         $liked_post->likes=$count;
         $liked_post->save();
         
