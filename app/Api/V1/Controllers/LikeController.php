@@ -76,7 +76,7 @@ class LikeController extends BaseController
 
            
  
-       return $this->response->json($like);
+       return $this->response()->json($like);
     }
 
 

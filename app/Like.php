@@ -7,7 +7,7 @@ use Moloquent;
 class Like extends  Moloquent
 {
 
-    protected $like = 'Like_collection';
+    protected $collection = 'Like_collection';
 
     protected static $createRules = array(
 		'user_id'	   =>	'required|',
