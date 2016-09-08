@@ -300,6 +300,7 @@ return response()->json($total_post);
         $post->author_id=$author->_id;
         $post->author_imgurl=$author->avatar;
         $post->content=$input['content'];
+        $post->likes=0;
         $post->save();
 
         
