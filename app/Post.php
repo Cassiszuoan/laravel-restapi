@@ -22,6 +22,19 @@ public function user()
         return $this->belongsTo('App\User');
     }
 
+
+public function likes()
+
+  {
+   
+
+
+   return $this->embedsMany('App\Like');
+
+
+
+  }
+
 	
 
 
