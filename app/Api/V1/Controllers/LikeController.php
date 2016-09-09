@@ -149,9 +149,10 @@ class LikeController extends BaseController
         }
         
         
+        $liked_post = Post::where('_id','=',$post_id)->first();
 
-
-        
+        $liked_post->likes()->dissociate($like);
+        $like->delete();
 
 
         if(Like::where('user_id','=',$user_id)){
@@ -162,14 +163,17 @@ class LikeController extends BaseController
             $count = 0 ;
         }
 
-         
-        $liked_post = Post::where('_id','=',$post_id)->first();
+
+        
         $liked_post->likes_count=$count;
-        $liked_post->likes()->dissociate($like);
+
+
+         
+        
         $liked_post->save();
 
 
-        $like->delete();
+        
         
         
 
