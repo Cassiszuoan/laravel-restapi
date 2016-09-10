@@ -60,6 +60,7 @@ class LikeController extends BaseController
 
         $user_id = $user->_id;
         $user_name= $user->name;
+        $avatar=$user->avatar;
 
 
         $check_like = Like::where('user_id','=',$user_id)->where('post_id','=',$post_id)->first();
@@ -73,6 +74,7 @@ class LikeController extends BaseController
         $like->user_id = $user_id;
         $like->post_id = $post_id;
         $like->user_name = $user_name;
+        $like->user_avatar=$avatar;
         $like->save();
 
 
