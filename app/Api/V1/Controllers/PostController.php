@@ -223,7 +223,7 @@ echo json_encode ( $array );
 
    // 這邊將追蹤中的post加入陣列
    
-   $news = array();
+   
 
 
    $self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get();
@@ -244,8 +244,8 @@ echo json_encode ( $array );
 
    else {
 
-    
 
+   $total_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get();
 
    }
   
