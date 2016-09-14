@@ -228,29 +228,26 @@ echo json_encode ( $array );
 
    $self_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get();
 
+   $total_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get();
+
    
 
    foreach($followinglist as $author_id){
 
    $following_post = Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
-
-
-   if($following_post){
-
-
-    $total_post = $self_post->merge($following_post);
-
-   }
-
-   else {
-
-
-   $total_post = Post::where('author_id','=',$user_from_id)->orderBy('created_at','DESC')->get();
-
-   }
-  
    
+   if(empty($following_post)){
 
+    $total_post= $self_post;
+   }
+
+
+   else
+   {
+   
+   $total_post = $self_post->merge($following_post);
+
+   }
 
 
  }
