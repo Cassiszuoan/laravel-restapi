@@ -233,8 +233,24 @@ echo json_encode ( $array );
    foreach($followinglist as $author_id){
 
    $following_post = Post::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
+
+
+   if($following_post){
+
+
+    $total_post = $self_post->merge($following_post);
+
+   }
+
+   else {
+
     
-   $total_post = $self_post->merge($following_post);
+
+
+   }
+  
+   
+
 
 
  }
