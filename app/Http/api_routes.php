@@ -10,6 +10,8 @@ $api->version('v1', function ($api) {
 	$api->post('auth/fb_signup', 'App\Api\V1\Controllers\AuthController@fb_signup');
 	$api->post('auth/recovery', 'App\Api\V1\Controllers\AuthController@recovery');
 	$api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
+
+
 	$api->get('user/index','App\Api\V1\Controllers\UserController@index');
 	$api->get('user/{name}','App\Api\V1\Controllers\UserController@get');
 	$api->get('user/token/{token}','App\Api\V1\Controllers\UserController@getUserByToken');
@@ -17,10 +19,13 @@ $api->version('v1', function ($api) {
 	$api->post('user/search','App\Api\V1\Controllers\UserController@search');
 	$api->post('user/update','App\Api\V1\Controllers\UserController@update');
 	$api->post('user/upload','App\Api\V1\Controllers\UserController@uploadImage');
+
 	$api->post('connection/connect','App\Api\V1\Controllers\ConnectionController@connect');
 	$api->post('connection/search_following','App\Api\V1\Controllers\ConnectionController@search_following');
     $api->post('connection/search_followers','App\Api\V1\Controllers\ConnectionController@search_followed');
 	$api->post('connection/delete','App\Api\V1\Controllers\ConnectionController@delete');
+
+	
 	$api->get('post/index','App\Api\V1\Controllers\PostController@index');
 	$api->post('post/store','App\Api\V1\Controllers\PostController@store');
 	$api->post('post/search','App\Api\V1\Controllers\PostController@search');
@@ -42,9 +47,11 @@ $api->version('v1', function ($api) {
 
 
 
+    $api->post('comment/comment','App\Api\V1\Controllers\CommentController@comment');
+    $api->post('comment/delete','App\Api\V1\Controllers\CommentController@delete_comment');
 
 
-    $api->get('test/index','App\Api\V1\Controllers\TestController@store');
+
 	// example of protected route
 	$api->get('protected', ['middleware' => ['api.auth'], function () {		
 		return \App\User::all();

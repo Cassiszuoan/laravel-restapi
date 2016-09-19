@@ -35,6 +35,20 @@ public function likes()
 
   }
 
+
+
+  public function comments()
+
+  {
+   
+
+
+   return $this->embedsMany('App\Comment');
+
+
+
+  }
+
 	
 
 
