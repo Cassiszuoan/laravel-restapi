@@ -81,7 +81,7 @@ class CommentController extends BaseController
 
         $Commented_post = Post::where('_id','=',$post_id)->first();
              
-        $Commented_post->Comments()->associate($Comment);
+        $Commented_post->comments()->associate($Comment);
 
         $Commented_post->save();
 
