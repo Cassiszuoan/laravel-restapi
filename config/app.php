@@ -164,6 +164,7 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
     ],
 
     /*
@@ -217,6 +218,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Moloquent'  => Jenssegers\Mongodb\Eloquent\Model::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 
