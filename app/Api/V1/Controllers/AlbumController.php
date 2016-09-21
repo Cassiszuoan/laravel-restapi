@@ -31,7 +31,9 @@ class AlbumController extends BaseController
 
 	public function htmltoPdf(){
 
-    $snappy->generateFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>', '/tmp/bill-1234.pdf');
+    $snappy = App::make('snappy.pdf');
+    $snappy->generate('/tmp/album/albumTest.html','/tmp/album.pdf');
+    // $snappy->generateFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>', '/tmp/bill-123.pdf');
     
     
 
