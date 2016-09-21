@@ -31,9 +31,8 @@ class AlbumController extends BaseController
 
 	public function htmltoPdf(){
 
-    $snappy = new Pdf();
-    $snappy->loadHTML('<h1>Test</h1>');
-    return $snappy->inline();
+    $snappy = App::make('snappy.pdf');
+    
     
 
 
