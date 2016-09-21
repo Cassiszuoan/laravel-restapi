@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Book;
 
+use App;
+
 use Helpers;
 
 use Validator;
