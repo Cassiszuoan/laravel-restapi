@@ -25,7 +25,7 @@ $api->version('v1', function ($api) {
     $api->post('connection/search_followers','App\Api\V1\Controllers\ConnectionController@search_followed');
 	$api->post('connection/delete','App\Api\V1\Controllers\ConnectionController@delete');
 
-	
+
 	$api->get('post/index','App\Api\V1\Controllers\PostController@index');
 	$api->post('post/store','App\Api\V1\Controllers\PostController@store');
 	$api->post('post/search','App\Api\V1\Controllers\PostController@search');
@@ -49,6 +49,12 @@ $api->version('v1', function ($api) {
 
     $api->post('comment/comment','App\Api\V1\Controllers\CommentController@comment');
     $api->post('comment/delete','App\Api\V1\Controllers\CommentController@delete_comment');
+
+
+    $api->get('album/html2pdf','App\Api\V1\Controllers\AlbumController@htmltoPdf');
+
+
+
 
 
 
