@@ -178,17 +178,11 @@ class AlbumController extends BaseController
 </html>";
 
 
-$path = "uploads/{$user_id}/album/";
+    $htmlpath = "tmp/album2/";
 
-if (!file_exists($path)) {
-    mkdir($path, 0777, true);
-    $uploaddir = $path;
-}
-else{
-  $uploaddir = $path;
-}
 
-    $uploadfile = $uploaddir .$album_name .".html";
+
+    $uploadfile = $htmlpath .$album_name .".html";
 
 if (file_put_contents($uploadfile, $html) !== false) {
     echo "File created (" . basename($uploadfile) . ")";
@@ -197,9 +191,23 @@ if (file_put_contents($uploadfile, $html) !== false) {
 }
 
 
+ $path = "uploads/{$user_id}/album/";
+
+
+  if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+    $uploaddir = $path;
+}
+else{
+  $uploaddir = $path;
+}
+
+
 
     $snappy = App::make('snappy.pdf');
-    $snappy->generate("http://140.136.155.143/". $uploadfile,"/tmp/{$album_name}.pdf");
+    $snappy->generate($uploadfile,$uploaddir.$album_name.".pdf");
+
+
     // $snappy->generateFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>', '/tmp/bill-123.pdf');
     
     
