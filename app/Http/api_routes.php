@@ -51,7 +51,7 @@ $api->version('v1', function ($api) {
     $api->post('comment/delete','App\Api\V1\Controllers\CommentController@delete_comment');
 
 
-    $api->get('album/html2pdf','App\Api\V1\Controllers\AlbumController@htmltoPdf');
+    $api->post('album/html2pdf','App\Api\V1\Controllers\AlbumController@htmltoPdf');
 
 
 
