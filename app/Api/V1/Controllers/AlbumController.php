@@ -29,15 +29,29 @@ class AlbumController extends BaseController
     
 
 
-	public function htmltoPdf(){
+	public function htmltoPdf(Request $request){
 
 
-    
 
 
-    $dom = new DOMDocument;
-    $dom->loadHTMLFile('/album/albumTest.html');
-    $dom->preserveWhiteSpace = false;
+
+         $input = $request->all();
+
+
+        $validator = Validator::make($input,[
+            'user_id'       =>   'required', 
+            'album_name'     =>   'required',
+            
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        $user_id = $input['user_id'];
+        $album_name = $input['album_name'];
 
 
 
@@ -155,10 +169,28 @@ class AlbumController extends BaseController
 </html>";
 
 
+$path = "uploads/{$user_id}/album/";
+
+if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+    $uploaddir = $path;
+}
+else{
+  $uploaddir = $path;
+}
+
+    $uploadfile = $uploaddir .$album_name .".html";
+
+if (file_put_contents($uploadfile, $html) !== false) {
+    echo "File created (" . basename($uploadfile) . ")";
+} else {
+    echo "Cannot create file (" . basename($uploadfile) . ")";
+}
+
 
 
     $snappy = App::make('snappy.pdf');
-    $snappy->generate('/tmp/album/albumTest.html','/tmp/album.pdf');
+    $snappy->generate("http://140.136.155.143/". $uploadfile,"/tmp/{$album_name}.pdf");
     // $snappy->generateFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>', '/tmp/bill-123.pdf');
     
     
