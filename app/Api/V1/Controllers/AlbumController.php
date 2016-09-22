@@ -181,8 +181,17 @@ class AlbumController extends BaseController
     $htmlpath = "tmp/album2/";
 
 
+    if (!file_exists($htmlpath)) {
+    mkdir($htmlpath, 0777, true);
+    $uploaddir = $htmlpath;
+}
+else{
+  $uploaddir = $htmlpath;
+}
 
-    $uploadfile = $htmlpath .$album_name .".html";
+
+
+    $uploadfile = $uploaddir .$album_name .".html";
 
 if (file_put_contents($uploadfile, $html) !== false) {
     echo "File created (" . basename($uploadfile) . ")";
