@@ -54,6 +54,15 @@ class AlbumController extends BaseController
         $album_name = $input['album_name'];
 
 
+        $url1="";
+        $url2="";
+        $url3="";
+        $url4="";
+        $url5="";
+        $url6="";
+        $url7="";
+        $url8="";
+
 
     $html= "<!DOCTYPE html>
 <html lang=\"en\">
