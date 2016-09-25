@@ -50,7 +50,6 @@ class AlbumController extends BaseController
 
         $validator = Validator::make($input,[
             'token'         =>   'required',
-            'user_id'       =>   'required', 
             'album_name'    =>   'required',
             'url1'          =>   'required',
             'url2'          =>   'required',
@@ -69,6 +68,8 @@ class AlbumController extends BaseController
     if($validator->fails()) {
             throw new ValidationHttpException($validator->errors()->all());
         }
+
+        $accesstoken=$input['token'];
 
         $user = User::where('accesstoken','=',$accesstoken)->first();
         $user_id = $user->_id;
