@@ -231,12 +231,9 @@ if (file_put_contents($uploadfile, $html) !== false) {
 }
 else{
   $uploaddir = $path;
+
 }
 
-
-
-    $snappy = App::make('snappy.pdf');
-    $snappy->generate($uploadfile,$uploaddir.$album_name.".pdf");
 
 
     $album = new Album;
@@ -245,6 +242,14 @@ else{
     $album->author_id=$author->_id;
     $album->pdf_url="http://140.136.155.143/".$uploaddir.$album_name.".pdf";
     $album->save();
+
+
+
+    $snappy = App::make('snappy.pdf');
+    $snappy->generate($uploadfile,$uploaddir.$album_name.".pdf");
+
+
+    
 
 
 
