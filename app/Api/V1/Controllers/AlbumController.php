@@ -8,6 +8,10 @@ use App\Http\Requests;
 
 use App\Book;
 
+use App\Album;
+
+use App\User;
+
 use App;
 
 use Helpers;
@@ -26,6 +30,12 @@ use Dingo\Api\Exception\ValidationHttpException;
 class AlbumController extends BaseController
 {
 
+
+
+
+
+
+
     
 
 
@@ -39,8 +49,18 @@ class AlbumController extends BaseController
 
 
         $validator = Validator::make($input,[
+            'token'         =>   'required',
             'user_id'       =>   'required', 
-            'album_name'     =>   'required',
+            'album_name'    =>   'required',
+            'url1'          =>   'required',
+            'url2'          =>   'required',
+            'url3'          =>   'required',
+            'url4'          =>   'required',
+            'url5'          =>   'required',
+            'url6'          =>   'required',
+            'url7'          =>   'required',
+            'url8'          =>   'required',
+
             
         ]);
 
@@ -50,18 +70,19 @@ class AlbumController extends BaseController
             throw new ValidationHttpException($validator->errors()->all());
         }
 
-        $user_id = $input['user_id'];
+        $user = User::where('accesstoken','=',$accesstoken)->first();
+        $user_id = $user->_id;
         $album_name = $input['album_name'];
 
 
-        $url1="";
-        $url2="";
-        $url3="";
-        $url4="";
-        $url5="";
-        $url6="";
-        $url7="";
-        $url8="";
+        $url1=$input['url1'];
+        $url2=$input['url2'];
+        $url3=$input['url3'];
+        $url4=$input['url4'];
+        $url5=$input['url5'];
+        $url6=$input['url6'];
+        $url7=$input['url7'];
+        $url8=$input['url8'];
 
 
     $html= "<!DOCTYPE html>
@@ -217,14 +238,46 @@ else{
     $snappy->generate($uploadfile,$uploaddir.$album_name.".pdf");
 
 
-    // $snappy->generateFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>', '/tmp/bill-123.pdf');
-    
-    
+    $album = new Album;
+    $author = User::where('accesstoken','=',$input['token'])->first();
+    $album->author_name=$author->name;
+    $album->author_id=$author->_id;
+    $album->pdf_url="http://140.136.155.143/".$uploaddir.$album_name.".pdf";
+    $album->save();
+
+
+
+    return response()->json($album);
 
 
  
 
 }
+
+
+public  function search(Request $request){
+
+          $input = $request -> all();
+          $validator = Validator::make($input,[
+            'token' => 'required',
+            
+        ]);
+
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        $author = User::where('accesstoken','=',$input['token'])->first();
+        $author_id = $author->_id;
+        $albums =  Album::where('author_id','=',$author_id)->orderBy('created_at','DESC')->get();
+
+
+
+        return response()->json($albums);
+
+
+    }
 
 
 }
