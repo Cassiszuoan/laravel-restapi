@@ -51,6 +51,7 @@ class AlbumController extends BaseController
         $validator = Validator::make($input,[
             'token'         =>   'required',
             'album_name'    =>   'required',
+            'baby_name'     =>   'required',
             'url1'          =>   'required',
             'url2'          =>   'required',
             'url3'          =>   'required',
@@ -74,6 +75,7 @@ class AlbumController extends BaseController
         $user = User::where('accesstoken','=',$accesstoken)->first();
         $user_id = $user->_id;
         $album_name = $input['album_name'];
+        $baby_name  = $input['baby_name'];
 
 
         $url1=$input['url1'];
@@ -111,7 +113,7 @@ class AlbumController extends BaseController
 
             <div class=\"cover-photo\">
                 <div class=\"photo-for-cover\" style=\"background-image:url(image/photo-cover.jpg)\"></div>
-                <div class=\"title1\">寶貝名字</div>
+                <div class=\"title1\">{$baby_name}}</div>
                 <div class=\"subtitle1\">My Baby</div>
             </div>
 
@@ -128,7 +130,7 @@ class AlbumController extends BaseController
         <div class=\"paper left-page\">
             
             <div class=\"photo-type-big\" style=\"transform: rotate(-3deg); margin-left: 23mm; margin-top: 20mm; z-index: 999;\" >
-                <div class=\"photo-type-1\" style=\"background-image:url({$url1}})\"></div>
+                <div class=\"photo-type-1\" style=\"background-image:url({$url1})\"></div>
             </div>
 
             <div class=\"photo-type-big\" style=\"transform: rotate(1deg); margin-left: 20mm; margin-top: 150mm; z-index: 0;\">
@@ -238,6 +240,7 @@ else{
 
     $album = new Album;
     $author = User::where('accesstoken','=',$input['token'])->first();
+    $album->album_name=$album_name;
     $album->author_name=$author->name;
     $album->author_id=$author->_id;
     $album->pdf_url="http://140.136.155.143/".$uploaddir.$album_name.".pdf";
