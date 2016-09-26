@@ -113,7 +113,7 @@ class AlbumController extends BaseController
 
             <div class=\"cover-photo\">
                 <div class=\"photo-for-cover\" style=\"background-image:url(image/photo-cover.jpg)\"></div>
-                <div class=\"title1\">{$baby_name}}</div>
+                <div class=\"title1\">{$baby_name}</div>
                 <div class=\"subtitle1\">My Baby</div>
             </div>
 
