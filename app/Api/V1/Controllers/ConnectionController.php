@@ -107,6 +107,80 @@ class ConnectionController extends BaseController
 
 
 
+
+    public function search_following_byid(Request $request){
+         
+         $input = $request->all();
+
+
+        $validator = Validator::make($input,[
+            'user_id'       =>   'required',    
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+
+
+        $user_from_id = $input['user_id'];
+
+        $user = User::where('_id','=',$user_from_id)->first();
+
+
+        $connection = Connection::where('user_from_id','=',$user_from_id)->get();
+     
+
+    foreach($connection as $i){
+       
+        $i->following_user_img= 'testing url';
+
+        $user_to_id = $i->user_to_id;
+
+        $followinguser = User::where('_id','=',$user_to_id)->first();
+
+        $i->avatar = $followinguser->avatar;
+
+        $i->following_user_name = $followinguser->name; 
+
+        $i->save();
+         
+
+     }
+
+        
+
+        
+
+
+
+
+        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+
+        $user->following_count = $totalconnection;
+
+        $followerconnection = Connection::where('user_to_id','=',$user_from_id)->count();
+
+        $user->follower_count =  $followerconnection;
+
+        $user->save();
+
+
+        
+ 
+
+
+       return $this->response->collection($connection, new FollowingTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());
+
+    }
+
+
+
+
+
     public function search_followed(Request $request){
 
 
@@ -131,6 +205,80 @@ class ConnectionController extends BaseController
 
 
         $user_from_id = $user->_id;
+
+        $connection = Connection::where('user_to_id','=',$user_from_id)->get();
+
+
+
+
+
+        foreach($connection as $i){
+       
+        $i->follower_user_img= 'testing url';
+
+        $user_from_id = $i->user_from_id;
+
+        $followeruser = User::where('_id','=',$user_from_id)->first();
+
+        $i->avatar = $followeruser->avatar;
+
+        $i->follower_user_name = $followeruser->name; 
+
+        $i->save();
+         
+
+     }
+
+
+
+
+
+
+
+        
+
+
+        $totalconnection = Connection::where('user_from_id','=',$user_from_id)->count();
+
+        $user->following_count = $totalconnection;
+
+        $followerconnection = Connection::where('user_to_id','=',$user_from_id)->count();
+
+        $user->follower_count =  $followerconnection;
+
+        $user->save();
+
+
+        return $this->response->collection($connection, new FollowedTransformer)->addMeta('status Code', app('Illuminate\Http\Response')->status());;
+
+
+
+
+    }
+
+
+
+     public function search_followed_byid(Request $request){
+
+
+        $input = $request->all();
+        
+         $validator = Validator::make($input,[
+            'user_id'       =>   'required',
+
+        ]);
+
+
+
+         if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+
+
+        $user_from_id = $input['user_id'];
+
+        $user = User::where('_id','=',$user_from_id)->first();
 
         $connection = Connection::where('user_to_id','=',$user_from_id)->get();
 
