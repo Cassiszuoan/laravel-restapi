@@ -264,6 +264,192 @@ else{
 }
 
 
+
+public function htmltoPdf2(Request $request){
+
+
+
+
+
+         $input = $request->all();
+
+
+        $validator = Validator::make($input,[
+            'token'         =>   'required',
+            'album_name'    =>   'required',
+            'baby_name'     =>   'required',
+            'url1'          =>   'required',
+            'url2'          =>   'required',
+            'url3'          =>   'required',
+            'url4'          =>   'required',
+            'url5'          =>   'required',
+            'url6'          =>   'required',
+            'url7'          =>   'required',
+            'url8'          =>   'required',
+
+            
+        ]);
+
+
+
+    if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
+        $accesstoken=$input['token'];
+
+        $user = User::where('accesstoken','=',$accesstoken)->first();
+        $user_id = $user->_id;
+        $album_name = $input['album_name'];
+        $baby_name  = $input['baby_name'];
+
+
+        $url1=$input['url1'];
+        $url2=$input['url2'];
+        $url3=$input['url3'];
+        $url4=$input['url4'];
+        $url5=$input['url5'];
+        $url6=$input['url6'];
+        $url7=$input['url7'];
+        $url8=$input['url8'];
+
+
+    $html= "<!DOCTYPE html>
+<html lang=\"en\">
+
+<head>
+    <meta charset=\"utf-8\">
+    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <title>專冊樣式二</title>
+    <!-- Bootstrap -->
+    <link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">
+    <link href=\"css/album2.css\" rel=stylesheet>
+    <!-- HTML5 shim and Respond.js 讓 IE8 支援 HTML5 元素與媒體查詢 -->
+    <!-- 警告：Respond.js 無法在 file:// 協定下運作 -->
+    <!--[if lt IE 9]>
+      <script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script>
+      <script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div>
+        <div class=\"paper cover\">
+            <div class=\"cover-border\"></div>
+            <div class=\"title-container\">
+                <div class=\"title1\">{$baby_name}</div>
+                <div class=\"subtitle1\">My Baby</div>
+            </div>
+            <div class=\"cover-photo\" style=\"background-image: url({$url1});\"></div>
+            <div class=\"decoration\" style=\"margin-left: 95mm; margin-top: 170mm; width: 92mm;\"></div>
+
+            <div class=\"yearly\" style=\"margin-left: 110mm; margin-top: 171mm\>2016</div>
+            <div class=\"yearly\" style=\"margin-left: 152mm; margin-top: 171mm\">3 years old</div>
+
+            <div class=\"decoration\" style=\"margin-left: 107mm; margin-top: 180mm\"></div>
+            <div class=\"image-for-cover\"></div>
+
+        </div>
+
+        <div class=\"paper left-page\">        
+            <div class=\"photo-type-1\" style=\"margin-left: 10mm; margin-top: 30mm; background-image: url({$url2})\"></div>
+            <div class=\"dialog-type-1\" style=\"margin-left: 120mm; margin-top: 250mm\">“ 好可愛噢 !! ”</div>
+            <div class=\"commentator\" style=\"margin-left: 155mm; margin-top: 251mm\">—— 某某某 的留言</div>
+        </div>
+
+        <div class=\"paper right-page\">
+            <div class=\"photo-type-2\" style=\"background-image: url({$url3})\"></div>
+            <div class=\"dialog-type-2\" style=\"margin-left: 180mm; margin-top: 100mm\"><p>“ 哇 這張拍得好好 ”</p></div>
+            <div class=\"commentator-vertical\" style=\"margin-left: 180mm; margin-top: 150mm\"><p>—— 某某某 的留言</p></div>
+        </div>
+        
+        <div class=\"paper left-page\">
+            <div class=\"photo-type-3\" style=\"margin-top: 40mm; background-image: url({$url4})\"></div>
+            <div class=\"photo-type-3\" style=\"margin-top: 150mm; background-image: url({$url5})\"></div>
+        </div>
+
+
+        <div class=\"paper backcover\">
+            <div class=\"cover-border\" style=\"margin-left: 198mm\"></div>
+            <div class=\"image-for-backcover\" style=\"background-image: url(image/animal_back.png)\"></div>
+        </div>
+    </div>
+
+
+    <!-- jQuery (Bootstrap 所有外掛均需要使用) -->
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js\"></script>
+    <!-- 依需要參考已編譯外掛版本（如下），或各自獨立的外掛版本 -->
+    <script src=\"js/bootstrap.min.js\"></script>
+</body>
+
+</html>
+";
+
+
+    $htmlpath = "tmp/album3/";
+
+
+    if (!file_exists($htmlpath)) {
+    mkdir($htmlpath, 0777, true);
+    $uploaddir = $htmlpath;
+}
+else{
+  $uploaddir = $htmlpath;
+}
+
+
+
+    $uploadfile = $uploaddir .$album_name .".html";
+
+if (file_put_contents($uploadfile, $html) !== false) {
+    echo "File created (" . basename($uploadfile) . ")";
+} else {
+    echo "Cannot create file (" . basename($uploadfile) . ")";
+}
+
+
+ $path = "uploads/{$user_id}/album/";
+
+
+  if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+    $uploaddir = $path;
+}
+else{
+  $uploaddir = $path;
+
+}
+
+
+
+    $album = new Album;
+    $author = User::where('accesstoken','=',$input['token'])->first();
+    $album->album_name=$album_name;
+    $album->author_name=$author->name;
+    $album->author_id=$author->_id;
+    $album->pdf_url="http://140.136.155.143/".$uploaddir.$album_name.".pdf";
+    $album->save();
+
+
+
+    $snappy = App::make('snappy.pdf');
+    $snappy->generate($uploadfile,$uploaddir.$album_name.".pdf");
+
+
+    
+
+
+
+    return response()->json($album);
+
+
+ 
+
+}
+
+
+
 public  function search(Request $request){
 
           $input = $request -> all();
