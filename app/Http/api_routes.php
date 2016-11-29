@@ -54,6 +54,7 @@ $api->version('v1', function ($api) {
 
 
     $api->post('album/html2pdf','App\Api\V1\Controllers\AlbumController@htmltoPdf');
+    $api->post('album/html2pdf2','App\Api\V1\Controllers\AlbumController@htmltoPdf2');
     $api->post('album/search','App\Api\V1\Controllers\AlbumController@search');
 
 

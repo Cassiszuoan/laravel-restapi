@@ -283,9 +283,7 @@ public function htmltoPdf2(Request $request){
             'url3'          =>   'required',
             'url4'          =>   'required',
             'url5'          =>   'required',
-            'url6'          =>   'required',
-            'url7'          =>   'required',
-            'url8'          =>   'required',
+            
 
             
         ]);
@@ -309,9 +307,7 @@ public function htmltoPdf2(Request $request){
         $url3=$input['url3'];
         $url4=$input['url4'];
         $url5=$input['url5'];
-        $url6=$input['url6'];
-        $url7=$input['url7'];
-        $url8=$input['url8'];
+        
 
 
     $html= "<!DOCTYPE html>
